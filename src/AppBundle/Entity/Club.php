@@ -12,8 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="club", indexes={@ORM\Index(name="FK_IDNOMCLUB_CLUB", columns={"intitule"})})
  * @ORM\Entity
  * @UniqueEntity(fields = "email", targetClass = "AppBundle\Entity\Utilisateur", message="fos_user.email.already_used")
- * @UniqueEntity(fields = "intitule", targetClass = "AppBundle\Entity\Club", message="Un compte existe déjà pour ce club.
- * Contactez l'administrateur en cas de problème.")
+ * @UniqueEntity(fields = "intitule", targetClass = "AppBundle\Entity\Club", message="Un compte existe déjà pour ce club. Contactez l'administrateur en cas de problème.")
  */
 class Club extends Utilisateur
 {
