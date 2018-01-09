@@ -1,0 +1,101 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+    Inscription Bénévole
+{% endblock title %}
+{% block content %}
+
+    {% trans_default_domain 'FOSUserBundle' %}
+
+    {% block fos_user_content %}
+
+    <div class="container">
+
+        <div class="card-panel grey lighten-5 z-depth-2">
+            <h5 class="header">INSCRIPTION BÉNÉVOLE</h5>
+            <div class="row">
+                <div class="col l10 offset-l1 s12">
+                    {{ form_start(form, {'method': 'post', 'action': path('benevole_registration'), 'attr': {'class': 'col s12'}}) }}
+                        <div class="row">
+                            <div class="col l6 s12">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">account_circle</i>
+                                    {{ form_widget(form.nom) }}
+                                    <label for="nom">Nom</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">account_circle</i>
+                                    {{ form_widget(form.prenom) }}
+                                    <label for="prenom">Prénom</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">date_range</i>
+                                    {{ form_widget(form.dateNaissance, {'attr': {'class': 'datepicker', 'id': 'date_naissance'} }) }}
+                                    <label for="date_naissance">Date de naissance</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">wc</i>
+                                    {{ form_widget(form.masculin) }}
+                                </div>
+                            </div>
+                            <div class="col l6 s12">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">email</i>
+                                    {{ form_widget(form.email) }}
+                                    <span class="red-text">{{ form_errors(form.email) }}</span>
+                                    <label for="mail">Email</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">lock_outline</i>
+                                    {{ form_widget(form.plainPassword.first) }}
+                                    <span class="red-text">{{ form_errors(form.plainPassword.first) }}</span>
+                                    <label for="mdp">Mot de passe</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">lock_outline</i>
+                                    {{ form_widget(form.plainPassword.second) }}
+                                    <span class="red-text">{{ form_errors(form.plainPassword.second) }}</span>
+                                    <label for="confirm_mdp">Confirmation</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">local_phone</i>
+                                    {{ form_widget(form.telephone) }}
+                                    <label for="prenom">Téléphone</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col l6 offset-l6 s12">
+                            <div class="row">
+                                <button class="btn waves-effect blue darken-2" type="submit" name="action">Valider
+                                    <i class="material-icons right">send</i>
+                                </button>
+                                <button class="btn waves-effect waves-light grey" type="reset" name="action">Réinitialiser
+                                    <i class="material-icons right">clear</i>
+                                </button>
+                            </div>
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+{% endblock fos_user_content %}
+{% endblock content %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $('select').material_select();
+
+        $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15, // Creates a dropdown of 15 years to control year,
+            today: 'Aujourd\'hui',
+            clear: 'Réinitialiser',
+            close: 'Ok',
+            closeOnSelect: false // Close upon selecting a date,
+        });
+    </script>
+{% endblock %}

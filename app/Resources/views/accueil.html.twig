@@ -1,0 +1,399 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+
+    <div id="banniere" class="parallax-container">
+        <div class="section no-pad-bot">
+            <div class="container">
+                <br>
+                 <div class="card opacity"><br>
+                    <h4 class="header center blue-text text-accent-3">Académie du Bénévolat</h4>
+                    <div class="row center">
+                        <h5 class="header col s12 light">Présentation de l'application</h5>
+                    </div>
+                    <div class="row center">
+                        <a href="#evenements" class="btn-large waves-effect waves-light blue accent-3">Les évenements à venir</a>
+                        <a href="#benevolat" class="btn-large waves-effect waves-light blue accent-3">Devenez bénevole</a>
+                    </div>
+                    <br>
+                 </div>
+            </div>
+        </div>
+        <div class="parallax"></div>
+    </div>
+
+    <div class="section" id="evenements">
+    <div class="row">
+        <div class="col l9 s12 push-l3 ">
+            <div class="col s12">
+                <div class="row">
+                    {% for evt in events %}
+                        <div class="card small hoverable col l4 s12">
+                            <img src='{{ asset("img/sports/"~ evt.sport.intitule ~".png")}}' class="circle" width="8%"/>
+                            <span style="font-size: 14px;"><b>{{ evt.titre }}</b></span><br>
+                            <span style="font-size: 12px;">
+                                Le {{ evt.dateDebut|date('d/m/Y') }} à {{ evt.horaire|date('H:i') }} H<br>
+                                {{ evt.lieu.adresse }} - {{ evt.lieu.ville }}
+                            </span>
+                            <a href="#detail_evenement{{ evt.id }}" class="modal-trigger secondary-content btn-floating halfway-fab waves-effect waves-light blue accent-3"><i class="material-icons">add</i></a>
+                            <div class="card-action">
+                                {% if evt.contientDemandesBenevolat() %}
+                                    <a href="#inscription_benevolat" class=" btn-small blue accent-3 modal-trigger">Besoin de bénévoles !</a>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div id="detail_evenement{{ evt.id }}" class="modal modal-fixed-footer">
+                            <div class="modal-content">
+                                <div class="row">
+                                    <div class="col s1">
+                                        <img src='{{ asset("img/sports/"~ evt.sport.intitule ~".png")}}' width="100%" class="circle">
+                                    </div>
+                                    <div class="col s11">
+                                        <h5>{{ evt.titre }}</h5>
+                                    </div>
+                                </div>
+                                <div class="card-panel grey lighten-5 z-depth-2">
+                                    <b> <i class="material-icons">event</i> Dimanche 19 Novembre 2017 </b><br>
+                                    <b> <i class="material-icons">access_time</i>15h30</b><br>
+                                    <b> <i class="material-icons">location_on</i>2 Rue de la Fraternité - 86180 Buxerolles</b><br>
+                                    <b> <i class="material-icons">directions_run</i>Football</b>
+                                    <br><br>
+                                </div>
+                                <div class="card-panel grey lighten-5 z-depth-2">
+                                    <h5> Informations supplémentaires</h5>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="button share_twitter" data-url="http://....">
+                                    Partager sur Twitter
+                                </button>
+                                <button class="button share_facebook" data-url="http://....">
+                                    Partager sur Facebook
+                                </button>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col s12 card-panel z-depth-2">
+                <ul class="pagination right">
+                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+                    <li class="active"><a href="#!">1</a></li>
+                    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col l3 s12 pull-l9">
+            <div class="col s12 ">
+                <ul class="collapsible z-depth-2 popout" data-collapsible="expandable">
+                    <li>
+                        <div class="collapsible-header grey lighten-3"><i class="material-icons">directions_run</i>Sports</div>
+                        <div class="collapsible-body">
+                            <div class="input-field">
+                                <div class="autocomplete" id="multiple">
+                                    <br>
+                                    <div class="ac-users"></div>
+                                    <div class="ac-input">
+                                        <input type="text" id="multipleInput" placeholder="Entrez quelques lettres" data-activates="multipleDropdown" data-beloworigin="true" autocomplete="off">
+                                    </div>
+                                    <ul id="multipleDropdown" class="dropdown-content ac-dropdown"></ul>
+                                    <input type="hidden" name="multipleHidden" />
+                                </div>
+                                <label class="active" for="multipleInput">Disciplines</label>
+                            </div>
+                            <div class="input-field">
+                                <select  class="icons" multiple>
+                                    <option value="" disabled selected></option>
+                                    <option value="">Jeunes</option>
+                                    <option value="">Adultes</option>
+                                    <option value="">Tout public</option>
+                                </select>
+                                <label>Catégories d'âge</label>
+                            </div>
+                            <br>
+                            <div class="input-field">
+                                <select  class="icons" multiple>
+                                    <option value="" disabled selected></option>
+                                    <option value="">Départemental</option>
+                                    <option value="">Régional</option>
+                                    <option value="">National</option>
+                                    <option value="">International</option>
+                                </select>
+                                <label>Niveaux</label>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header grey lighten-3"><i class="material-icons">event</i>Dates</div>
+                        <div class="collapsible-body">
+
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header grey lighten-3"><i class="material-icons">add_location</i>Lieux</div>
+                        <div class="collapsible-body"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div id="benevolat" class="parallax-container">
+        <div class="section no-pad-bot">
+            <div class="container">
+                <div class="card opacity">
+                    <br>
+                    <h4 class="header center blue-text text-accent-3">Devenez bénévole</h4>
+                    <div class="row center">
+                        <h5 class="header col s12 light">Petit texte sur le bénévolat</h5>
+                    </div>
+                    <div class="row center">
+                        <a href="{{ path('benevole_registration') }}" class="btn-large waves-effect waves-light blue accent-3">S'inscrire</a>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+        <div class="parallax"></div>
+    </div>
+
+    <button id="ajax">click me!</button>
+    <div id="ajax-results">here comes the result</div>
+
+    <div id="inscription_benevolat" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h6 class="header">INSCRIPTION EN TANT QUE BÉNÉVOLE À L'ÉVÉNEMENT</h6>
+            <div class="row">
+                <div class="col m10 offset-m1 s12">
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">account_circle</i>
+                                <input id="nom" type="text" class="validate" disabled selected>
+                                <label for="nom">Dupont</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">account_circle</i>
+                                <input id="prenom" type="text" class="validate" disabled selected>
+                                <label for="prenom">Toto</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">language</i>
+                                <select>
+                                    <option value="" disabled selected>Type de poste</option>
+                                    <option value="1">Restauration</option>
+                                    <option value="2">Parking</option>
+                                    <option value="3">Entrée</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="textarea1" class="materialize-textarea" data-length="500"></textarea>
+                                <label for="textarea1">
+                                    <i class="material-icons">edit</i>
+                                    Expliquez vos motivations en quelques mots
+                                </label>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn waves-effect blue darken-2" type="submit" name="action">Valider
+                <i class="material-icons right">send</i>
+            </button>
+            <button class="modal-action modal-close btn waves-effect waves-light grey" name="action">Fermer
+                <i class="material-icons right">clear</i>
+            </button>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/jquery.materialize-autocomplete.js') }}"></script>
+
+    <script type="text/javascript">
+        $(document).on('click', '#ajax', function(){
+            that = $(this);
+            $.ajax({
+                url:'{{ (path('detail_evenement')) }}',
+                type: "POST",
+                data: "&id=2",
+                dataType: "json",
+                complete: function(data) {
+                    $('#ajax-results').html(data).show();
+                }
+            });
+            return false;
+        });
+
+        $(".dropdown-button").dropdown();
+        $("select").material_select();
+        $('.scrollspy').scrollSpy();
+        $('.parallax').parallax();
+        $('.modal').modal({
+                dismissible: true, // Modal can be dismissed by clicking outside of the modal
+                opacity: .5, // Opacity of modal background
+                inDuration: 300, // Transition in duration
+                outDuration: 200, // Transition out duration
+                startingTop: '4%', // Starting top style attribute
+                endingTop: '10%', // Ending top style attribute
+                ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+                    console.log(modal, trigger);
+                },
+                complete: function() { } // Callback for Modal close
+            }
+        );
+
+        $(function () {
+            var multiple = $('#multipleInput').materialize_autocomplete({
+                multiple: {
+                    enable: true
+                },
+                appender: {
+                    el: '.ac-users'
+                },
+                dropdown: {
+                    el: '#multipleDropdown'
+                }
+            });
+            var resultCache = {
+                'F': [
+                    {
+                        id: 'Football',
+                        text: 'Football',
+                    }
+                ],
+                'FO': [
+                    {
+                        id: 'Football',
+                        text: 'Football',
+                    }
+                ],
+                'FOO': [
+                    {
+                        id: 'Football',
+                        text: 'Football',
+                    }
+                ],
+                'FOOT': [
+                    {
+                        id: 'Football',
+                        text: 'Football',
+                    }
+                ],
+                'R': [
+                    {
+                        id: 'Rugby',
+                        text: 'Rugby',
+                    }
+                ],
+                'RU': [
+                    {
+                        id: 'Rugby',
+                        text: 'Rugby',
+                    }
+                ],
+                'RUG': [
+                    {
+                        id: 'Rugby',
+                        text: 'Rugby',
+                    }
+                ],
+                'RUGB': [
+                    {
+                        id: 'Rugby',
+                        text: 'Rugby',
+                    }
+                ],
+                'K': [
+                    {
+                        id: 'Karaté',
+                        text: 'Karaté',
+                    }
+                ],
+                'KA': [
+                    {
+                        id: 'Karaté',
+                        text: 'Karaté',
+                    }
+                ],
+                'KAR': [
+                    {
+                        id: 'Karaté',
+                        text: 'Karaté',
+                    }
+                ],
+                'KARA': [
+                    {
+                        id: 'Karaté',
+                        text: 'Karaté',
+                    }
+                ],
+                'V': [
+                    {
+                        id: 'Volley-Ball',
+                        text: 'Volley-Ball',
+                    }
+                ],
+                'VO': [
+                    {
+                        id: 'Volley-Ball',
+                        text: 'Volley-Ball',
+                    }
+                ],
+                'VOL': [
+                    {
+                        id: 'Volley-Ball',
+                        text: 'Volley-Ball',
+                    }
+                ],
+                'VOLL': [
+                    {
+                        id: 'Volley-Ball',
+                        text: 'Volley-Ball',
+                    }
+                ],
+                'B': [
+                    {
+                        id: 'Basket-Ball',
+                        text: 'Basket-Ball',
+                    }
+                ],
+                'BA': [
+                    {
+                        id: 'Basket-Ball',
+                        text: 'Basket-Ball',
+                    }
+                ],
+                'BAS': [
+                    {
+                        id: 'Basket-Ball',
+                        text: 'Basket-Ball',
+                    }
+                ],
+                'BASK': [
+                    {
+                        id: 'Basket-Ball',
+                        text: 'Basket-Ball',
+                    }
+                ]
+            };
+            multiple.resultCache = resultCache;
+        });
+
+    </script>
+{% endblock %}

@@ -1,0 +1,58 @@
+accueil:
+    path:     /
+    defaults: { _controller: AppBundle:Accueil:index }
+
+detail_evenement:
+    path:     /evenement
+    defaults: { _controller: AppBundle:Accueil:chargerEvenement }
+
+creation_evenement:
+    path:     /creation-evenement
+    defaults: { _controller: AppBundle:CreerEvenement:index}
+
+modifier_evenement:
+    path:     /modifier-evenement/{id}
+    defaults: { _controller: AppBundle:CreerEvenement:edit}
+
+espace_club:
+    path:     /espace-club
+    defaults: { _controller: AppBundle:EspaceClub:index}
+
+espace_benevole:
+    path:     /espace-benevole
+    defaults: { _controller: AppBundle:EspaceBenevole:index}
+
+club_registration:
+    path:  /inscription/club
+    defaults: { _controller: AppBundle:RegistrationClub:register }
+
+benevole_registration:
+    path:  /inscription/benevole
+    defaults: { _controller: AppBundle:RegistrationBenevole:register }
+
+benevole_edit:
+    path:  profil/edit/benevole
+    defaults: { _controller: AppBundle:ProfileBenevole:edit }
+
+club_edit:
+    path:  profil/edit/club
+    defaults: { _controller: AppBundle:ProfileClub:edit }
+
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /profile
+
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /profile

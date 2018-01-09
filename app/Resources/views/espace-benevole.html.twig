@@ -1,0 +1,182 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Mon espace bénévole{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+            <h4 class="header center blue-text text-accent-3">Bienvenue sur votre espace bénévole</h4>
+
+                    <div class="card-panel grey lighten-5 z-depth-2">
+                        <h5 class="header blue-text text-accent-3">Événements à venir</h5>
+                            <div class="col l9 s12 push-l3">
+                                <div class="row">
+                                    <div class="col s12 l4">
+                                        <div class="card z-depth-2">
+                                            <div class="card-content">
+                                                <img src="{{ asset('img/basket-ball.png') }}" width="12%"class="circle responsive-img right"/>
+                                                <span class="card-title activator grey-text text-darken-4" style="font-weight: bold; font-size: 20px">PB86 / Aix Maurienne</span>
+                                                <p>Le 27/11/2017 à 20h00</p>
+                                                <p>Salle Saint Eloi </p>
+                                                <p>86 000 Poitiers</p>
+                                                <a class="btn-floating halfway-fab waves-effect waves-light blue accent-3 activator"><i class="material-icons">add</i></a>
+                                            </div>
+                                            <div class="card-action">
+                                                <p><b>VOS MISSIONS SUR CET EVENEMENT :</b></p>
+                                                <img src="{{ asset('img/tic.png') }}">
+                                            </div>
+                                            <div class="card-reveal">
+                                                <span class="card-title grey-text text-darken-4">Titre<i class="material-icons right">close</i></span>
+                                                <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 l4">
+                                        <div class="card z-depth-2">
+                                            <div class="card-content">
+                                                <img src="{{ asset('img/volley.jpg') }}" width="12%"class="circle responsive-img right"/>
+                                                <span class="card-title activator grey-text text-darken-4" style="font-weight: bold; font-size: 20px"> CEP Saint Benoit / Perigny </span>
+                                                <p>Le 19/12/2017 à 15H00</p>
+                                                <p>Salle du gravion</p>
+                                                <p>86000 Poitiers </p>
+                                                <a class="btn-floating halfway-fab waves-effect waves-light blue accent-3 activator"><i class="material-icons">add</i></a>
+                                            </div>
+                                            <div class="card-action">
+                                                <p><b>VOS MISSIONS SUR CET EVENEMENT :</b></p>
+                                                <img src="{{ asset('img/buvette.jpg') }}">
+                                            </div>
+                                            <div class="card-reveal">
+                                                <span class="card-title grey-text text-darken-4">CEP Saint Benoit / Perigny<i class="material-icons right">close</i></span>
+                                                <p> Tranche d'âge: Sénior </p>
+                                                <p>Niveaux: Régional - Féminine</p>
+                                                <p><b>Tarif : 0€</b></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                <div class="card-panel grey lighten-5 z-depth-2">
+                <h5 class="header blue-text text-accent-3">Événements passés</h5>
+                <div class="col l9 s12 push-l3">
+                        <div class="row">
+                            <div class="col s12 l4">
+                                <div class="card z-depth-2">
+                                    <div class="card-content">
+                                        <img src="{{ asset('img/rugby.jpg') }}" width="12%"class="circle responsive-img right"/>
+                                        <span class="card-title activator grey-text text-darken-4" style="font-weight: bold; font-size: 20px">Châtellerault / Niort</span>
+                                        <p>Le 31/10/2017 à 16H30</p>
+                                        <p>Stade Rébeilleau</p>
+                                        <p>86 000 Poitiers</p>
+                                        <a class="btn-floating halfway-fab waves-effect waves-light blue accent-3 activator"><i class="material-icons">add</i></a>
+                                    </div>
+                                    <div class="card-action">
+                                        <p><b>VOS MISSIONS SUR CET EVENEMENT :</b></p>
+                                        <img src="{{ asset('img/buvette.jpg') }}"><img src="{{ asset('img/par2.png') }}">
+                                    </div>
+                                    <div class="card-reveal">
+                                        <span class="card-title grey-text text-darken-4">Châtellerault / Niort<i class="material-icons right">close</i></span>
+                                        <p> Tranche d'âge: Sénior </p>
+                                        <p>Niveaux: Régional - Féminine</p>
+                                        <p><b>Tarif : 0€</b></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s12 l4">
+                                <div class="card z-depth-2">
+                                    <div class="card-content">
+                                        <img src="{{ asset('img/karate.png') }}" width="14%"class="circle responsive-img right"/>
+                                        <span class="card-title activator grey-text text-darken-4" style="font-weight: bold; font-size: 20px">Championnat MCJS Kata/Kumité4</span>
+                                        <p>Le 17/10/2017 à 9H00</p>
+                                        <p>Dojo Michel Amand</p>
+                                        <p>86180 Bruxerolles</p>
+                                        <a class="btn-floating halfway-fab waves-effect waves-light blue accent-3 activator"><i class="material-icons">add</i></a>
+                                    </div>
+                                    <div class="card-action">
+                                        <p><b>VOS MISSIONS SUR CET EVENEMENT :</b></p>
+                                        <img src="{{ asset('img/buvette.jpg') }}"><img src="{{ asset('img/par2.png') }}"><img src="{{ asset('img/tic.png') }}">
+                                    </div>
+                                    <div class="card-reveal">
+                                        <span class="card-title grey-text text-darken-4">Championnat MCJS Kata/Kumité<i class="material-icons right">close</i></span>
+                                        <p><b>Minimes, cadets, Juniors, Séniors</b> </p>
+                                        <p>Kata de 8h00 à 8h30, début de la compétition à 9h00</p>
+                                        <p>Kumite de 9h00 à 9h30, début de la compétition à 10h00</p>
+                                        <p><b>Enfants</b></p>
+                                        <p> Poussin et Pupilles controle de 13h00 à 13h30, début de la compétion 14h </p>
+                                        <p> Benjamins controle de 15h00 à 15h30, début de la compétion 16h </p>
+                                        <p><b>Niveaux : </b> Départementale </p>
+                                        <p><b> Tarif : 8€ </b></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s12 l4">
+                                <div class="card z-depth-2">
+                                    <div class="card-content">
+                                        <img src="{{ asset('img/football.png') }}" width="12%"class="circle responsive-img right"/>
+                                        <span class="card-title activator grey-text text-darken-4" style="font-weight: bold; font-size: 20px">Poitiers / Angouleme</span>
+                                        <p>Le 04/08/2017 à 19H00</p>
+                                        <p>Complexe Sportif Michel Amand 1</p>
+                                        <p>86180 Buxerolles</p>
+                                        <a class="btn-floating halfway-fab waves-effect waves-light blue accent-3 activator"><i class="material-icons">add</i></a>
+                                    </div>
+                                    <div class="card-action">
+                                        <p><b>VOS MISSIONS SUR CET EVENEMENT :</b></p>
+                                        <img src="{{ asset('img/buvette.jpg') }}">
+                                    </div>
+                                    <div class="card-reveal">
+                                        <span class="card-title grey-text text-darken-4">Poitiers / Angouleme<i class="material-icons right">close</i></span>
+                                        <p>Tarif : </p>
+                                        <p>Niveau : National</p>
+                                        <p>Catégorie : Sénior</p>
+                                        <p>Description :</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12 l4">
+                                <div class="card z-depth-2">
+                                    <div class="card-content">
+                                        <img src="{{ asset('img/football.png') }}" width="12%"class="circle responsive-img right"/>
+                                        <span class="card-title activator grey-text text-darken-4" style="font-weight: bold; font-size: 20px">Poitiers / Chauvigny</span>
+                                        <p>Le 24/05/2017 à 19H00</p>
+                                        <p>Complexe Sportif Michel Amand 1</p>
+                                        <p>86180 Buxerolles</p>
+                                        <a class="btn-floating halfway-fab waves-effect waves-light blue accent-3 activator"><i class="material-icons">add</i></a>
+                                    </div>
+                                    <div class="card-action">
+                                        <p><b>VOS MISSIONS SUR CET EVENEMENT :</b></p>
+                                        <img src="{{ asset('img/tic.png') }}">
+                                    </div>
+                                    <div class="card-reveal">
+                                        <span class="card-title grey-text text-darken-4">Poitiers / Angouleme<i class="material-icons right">close</i></span>
+                                        <p>Tarif : </p>
+                                        <p>Niveau : National</p>
+                                        <p>Catégorie : Sénior</p>
+                                        <p>Description :</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+
+        $('select').material_select();
+
+        $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15, // Creates a dropdown of 15 years to control year,
+            today: 'Aujourd\'hui',
+            clear: 'Réinitialiser',
+            close: 'Ok',
+            closeOnSelect: false // Close upon selecting a date,
+        });
+    </script>
+{% endblock %}

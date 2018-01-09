@@ -1,0 +1,17 @@
+{% extends 'FOSUserBundle::layout.html.twig' %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+
+<div class="fos_user_user_show">
+    <div class="center-align">
+        <br><h3>Page Club</h3><br>
+        <h5>{{ user.intitule.nom}}</h5>
+        <h5>{{ user.email}}</h5><br>
+        <a href="{{ path('creation_evenement') }}" class="btn-large waves-effect waves-light blue accent-3">Créer un événement</a>
+        <br><br><br>
+    </div>
+</div>
+
+{% endblock fos_user_content %}

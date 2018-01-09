@@ -1,0 +1,68 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+    Inscription Club
+{% endblock title %}
+
+{% block content %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+
+    <div class="container">
+        <div class="card-panel grey lighten-5 z-depth-2">
+            <h5 class="header">INSCRIPTION CLUB</h5><br>
+            <div class="row">
+                <div class="col l10 offset-l1 s12">
+                    {{ form_start(form, {'method': 'post', 'action': path('club_registration'), 'attr': {'class': 'col s12'}}) }}
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">info_outline</i>
+                            {{ form_widget(form.intitule) }}
+                            <label>Intitulé de votre club</label>
+                            <span class="red-text">{{ form_errors(form.intitule) }}</span>
+                        </div>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">email</i>
+                            {{ form_widget(form.email) }}
+                            <span class="red-text">{{ form_errors(form.email) }}</span>
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">lock_outline</i>
+                            {{ form_widget(form.plainPassword.first) }}
+                            <span class="red-text">{{ form_errors(form.plainPassword.first) }}</span>
+                            <label for="mdp">Mot de passe</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">lock_outline</i>
+                            {{ form_widget(form.plainPassword.second) }}
+                            <span class="red-text">{{ form_errors(form.plainPassword.second) }}</span>
+                            <label for="confirm_mdp">Confirmation</label>
+                        </div>
+                    </div>
+                    <div class="right-align">
+                            <button class="btn waves-effect blue darken-2" type="submit" name="action">Valider
+                                <i class="material-icons right">send</i>
+                            </button>
+                            <button class="btn waves-effect waves-light grey" type="reset" name="action">Réinitialiser
+                                <i class="material-icons right">clear</i>
+                            </button>
+                    </div>
+                    {{ form_end(form) }}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock fos_user_content %}
+{% endblock content %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $('select').material_select();
+    </script>
+{% endblock %}

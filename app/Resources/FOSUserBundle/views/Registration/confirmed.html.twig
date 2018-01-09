@@ -1,0 +1,22 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+    <div class="center-align">
+        <br><h3>Inscription terminée</h3><br>
+        <h5>{{ user.email}}</h5>
+        {% if app.user.getIntitule is defined %}
+            <h5>{{ user.intitule.nom}}</h5><br>
+            <a href="{{ path('creation_evenement') }}" class="btn-large waves-effect waves-light blue accent-3">Créer un événement</a>
+        {% else %}
+            <h5>{{ user.prenom}} {{ user.nom}}</h5>
+            <h5>{{ user.telephone}}</h5>
+        {% endif %}
+        <br><br><br>
+
+        {% if targetUrl %}
+        <p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>
+        {% endif %}
+    </div>
+{% endblock fos_user_content %}

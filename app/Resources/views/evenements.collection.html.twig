@@ -1,0 +1,71 @@
+{% block TableauEvenementsType_widget %}
+    {{ form_widget(form.evenements) }}
+{% endblock %}
+
+{% block collection_widget %}
+
+    {% spaceless %}
+        {% if prototype is defined %}
+            {% set attr = attr|merge({'data-prototype': form_widget(prototype)}) %}
+            {% set attr = attr|merge({'data-prototype-name': prototype.vars.name}) %}
+        {% endif %}
+        {% set attr = attr|merge({'data-allow-add': allow_add ? 1 : 0}) %}
+        {% set attr = attr|merge({'data-allow-remove': allow_delete ? 1 : 0 }) %}
+        {% set attr = attr|merge({'data-name-prefix': full_name}) %}
+
+            <table {{ block('widget_attributes') }} >
+                <thead>
+                <th>Titre</th>
+                <th>Date de début</th>
+                <th>Date de fin</th>
+                <th>Horaire</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                </thead>
+                <tbody>
+
+                {% for item in form %}
+                    {{ form_widget(item) }}
+                {% endfor %}
+
+                </tbody>
+            </table>
+        <br>
+        <div class="right-align">
+            <button class="btn waves-effect blue darken-2" id="sub" type="submit" name="action">Valider
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
+    {% endspaceless %}
+
+{% endblock %}
+
+{% block EvenementMinType_widget %}
+
+    <tr {{ block('widget_attributes') }}>
+        <td>{{ form_widget(form.titre) }}
+            <span class="red-text">{{ form_errors(form.titre) }}</span></td>
+        <td>{{ form_widget(form.dateDebut, {'attr': {'class': 'datepicker'} }) }}
+            <span class="red-text">{{ form_errors(form.dateDebut) }}</span></td>
+        <td>{{ form_widget(form.dateFin, {'attr': {'class': 'datepicker'} }) }}</td>
+        <td>{{ form_widget(form.horaire, {'attr': {'class': 'timepicker'} }) }}</td>
+        <td>
+            {{ form_widget(form.niveau) }}
+            {{ form_widget(form.categorieAge) }}
+            {{ form_widget(form.lieu) }}
+            {{ form_widget(form.club) }}
+            {{ form_widget(form.sport) }}
+        </td>
+        <td class="center-align">
+            <a href="{{ path('modifier_evenement',{"id": form.id.vars.value})}}" id="btn-tab" class="btn waves-effect blue darken-2" title="Modifier"><i class="material-icons">edit</i></a>
+        </td>
+        <td class="center-align">
+            <a href="#" id="btn-tab" class="btn waves-effect blue darken-2 TableauEvenementsType_evenements-collection-remove TableauEvenementsType_evenements-collection-action" title="Supprimer"><i class="material-icons">clear</i></a>
+        </td>
+        <td class="center-align">
+            <a href="#" id="btn-tab" class="btn waves-effect blue darken-2 TableauEvenementsType_evenements-collection-duplicate TableauEvenementsType_evenements-collection-action" title="Dupliquer"><i class="material-icons">content_copy</i></a>
+        </td>
+    </tr>
+
+{% endblock %}

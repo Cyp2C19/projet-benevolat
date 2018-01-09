@@ -1,0 +1,276 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Créer un événement{% endblock %}
+
+{% block content %}
+
+{{ form_start(form) }}
+{{ form_widget(form._token) }}
+
+<div class="container">
+    <form>
+        <div class="col s12">
+            <div class="row">
+                <div class="col l6 s12 card-panel hoverable grey lighten-5 z-depth-1">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">edit</i>
+                        {{ form_widget(form.titre, {'attr': {'id': 'titre', 'class': 'materialize-textarea',
+                            'data-length':'40'} }) }}
+                        <span class="red-text">{{ form_errors(form.titre) }}</span>
+                        <label for="titre">Titre</label>
+                    </div>
+                    <div class="input-field col s12">
+                        {{ form_widget(form.sport, {'attr': {'name': 'sports'} }) }}
+                        <label>Sport</label>
+                        <span class="red-text" id="erreur_sport" style="display:none">Veuillez sélectionner un sport</span>
+                    </div>
+                    <div class="input-field col s12">
+                        {{ form_widget(form.categorieAge) }}
+                        <label>Catégorie</label>
+                        <span class="red-text" id="erreur_cat" style="display:none">Veuillez sélectionner une catégorie</span>
+                    </div>
+                    <div class="input-field col s12">
+                        {{ form_widget(form.niveau) }}
+                        <label>Niveau</label>
+                        <span class="red-text" id="erreur_niveau" style="display:none">Veuillez sélectionner un niveau</span>
+                    </div>
+                    <div class="input-field col s12"></div>
+                </div>
+                <div class="col l6 s12 card-panel hoverable grey lighten-5 z-depth-1">
+                    <br>
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">event</i>
+                        {{ form_widget(form.dateDebut, {'attr': {'class': 'datepicker', 'id': 'datepickDeb'} }) }}
+                        <label for="datepickDeb">Date de début</label>
+                        <span class="red-text">{{ form_errors(form.dateDebut) }}</span>
+                    </div>
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">event</i>
+                        {{ form_widget(form.dateFin, {'attr': {'class': 'datepicker', 'id': 'datepickFin'} }) }}
+                        <label for="datepickFin">Date de fin</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">access_time</i>
+                        {{ form_widget(form.horaire, {'attr': {'class': 'timepicker', 'placeholder': 'Horaire'} }) }}
+                    </div>
+                    <div class="input-field col s12"></div>
+                    <div class="switch col l8 s12">
+                        <label><i class="material-icons prefix">home</i>Intérieur
+                            <input type="checkbox">
+                            <span class="lever"></span>Plein air<i class="material-icons">wb_sunny</i>
+                        </label>
+                    </div>
+                    <div class="input-field col s12"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 card-panel hoverable grey lighten-5 z-depth-1">
+                    <div class="col s12">
+                        <span class="red-text center-align">{{ form_errors(form.lieu.adresse) }}</span>
+                    </div>
+                    <div class="input-field col l10 offset-l1 s12">
+                        <div class="row	">
+                            <input id="pac-input" class="controls" type="text" placeholder="Entrez le lieu de l'événement"/>
+                            <div id="map"></div>
+                        </div>
+                    </div>
+                    <div class="col s12" style="display:none">
+                        {{ form_widget(form.lieu) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col l7 s12 card-panel hoverable grey lighten-5 z-depth-1">
+                    <div class="input-field col l6 s12">
+                        <i class="material-icons prefix">euro_symbol</i>
+                        {{ form_widget(form.tarifPlein, {'attr': {'id': 'pleinTarif'} }) }}
+                        <span class="red-text">{{ form_errors(form.tarifPlein) }}</span>
+                        <label for="pleinTarif">Plein tarif</label>
+                    </div>
+                    <div class="input-field col l6 s12">
+                        <i class="material-icons prefix">euro_symbol</i>
+                        {{ form_widget(form.tarifReduit, {'attr': {'id': 'tarifReduit'} }) }}
+                        <span class="red-text">{{ form_errors(form.tarifReduit) }}</span>
+                        <label for="tarifReduit">Tarif réduit</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">edit</i>
+                        {{ form_widget(form.description, {'attr': {'id': 'description', 'class': 'materialize-textarea',
+                            'data-length':'500'} }) }}
+                        <span class="red-text">{{ form_errors(form.description) }}</span>
+                        <label for="description">Description de l'événement</label>
+                    </div>
+                    <div class="input-field col s12"></div>
+                </div>
+                <div class="col l5 s12 card-panel hoverable grey lighten-5 z-depth-1">
+                    <h5 class="header center-align">Demandes de bénévolat</h5>
+                    <div class="center-align">
+                        <a class="btn-floating waves-effect blue accent-3" id="boutonBenevoles"><i class="material-icons">add</i></a>
+                    </div>
+                    <div class="input-field col s12"></div>
+                    <div class="col s12" id="ajoutBenevoles" style="display:none">
+                        <br>
+                        {{ form_row(form.demandesBenevolat) }}
+                    </div>
+                    <div class="input-field col s12"></div>
+                </div>
+            </div>
+        </div>
+        <button class="btn waves-effect blue darken-2" id="sub" type="submit" name="action">Valider
+            <i class="material-icons right">send</i>
+        </button>
+        <button class="btn waves-effect waves-light grey" type="reset" name="action">Effacer
+            <i class="material-icons right">clear</i>
+        </button>
+    </form>
+</div>
+<br>
+
+
+{{ form_end(form) }}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+
+        $('select').material_select();
+
+        $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15, // Creates a dropdown of 15 years to control year,
+            today: 'Aujourd\'hui',
+            clear: 'Réinitialiser',
+            close: 'Ok',
+            closeOnSelect: false // Close upon selecting a date,
+        });
+
+        $('.timepicker').pickatime({
+            default: 'now', // Set default time: 'now', '1:30AM', '16:30'
+            fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
+            twelvehour: false, // Use AM/PM or 24-hour format
+            donetext: 'OK', // text for done-button
+            cleartext: 'Réinitialiser', // text for clear-button
+            canceltext: 'Annuler', // Text for cancel-button
+            autoclose: false, // automatic close timepicker
+            ampmclickable: true, // make AM PM clickable
+            aftershow: function(){} //Function for after opening timepicker
+        });
+
+        $("#boutonBenevoles").click(function(){
+            if($("#ajoutBenevoles").css('display') == 'none'){
+                $("#ajoutBenevoles").show();
+            }else {
+                $("#ajoutBenevoles").hide();
+            }
+        });
+
+        function initMap() {
+            var poitiers = {lat: 46.5833, lng: 0.3333};
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 9,
+                center: poitiers
+            });
+            var options = {
+                componentRestrictions: {country: 'fr'},
+                types: ['address']
+            };
+
+            var input = /** @type {!HTMLInputElement} */(
+                document.getElementById('pac-input'));
+                map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+                var autocomplete = new google.maps.places.Autocomplete(input, options);
+                autocomplete.bindTo('bounds', map);
+                var infowindow = new google.maps.InfoWindow();
+
+                var marker = new google.maps.Marker({
+                    map: map,
+                    draggable:true,
+                    anchorPoint: new google.maps.Point(0, -29)
+            });
+
+            var inputAdresse = /** @type {!HTMLInputElement} */document.getElementById('appbundle_evenement_lieu_adresse');
+            var inputVille = /** @type {!HTMLInputElement} */document.getElementById('appbundle_evenement_lieu_ville');
+            var inputCp = /** @type {!HTMLInputElement} */document.getElementById('appbundle_evenement_lieu_codePostal');
+
+            autocomplete.addListener('place_changed', function() {
+                infowindow.close();
+                marker.setVisible(false);
+                var place = autocomplete.getPlace();
+
+                // Remise à zero des champs relatifs à la bdd
+                inputAdresse.value = '';
+                inputVille.value = '';
+                inputCp.value = '';
+
+                // Adresse trouvée dans Gmaps
+                if (place.geometry.viewport) {
+                    map.fitBounds(place.geometry.viewport);
+                } else {
+                    map.setCenter(place.geometry.location);
+                    map.setZoom(17);
+                }
+
+                marker.setIcon(/** @type {google.maps.Icon} */({
+                    url: place.icon,
+                    size: new google.maps.Size(71, 71),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(17, 34),
+                    scaledSize: new google.maps.Size(35, 35)
+                }));
+                marker.setPosition(place.geometry.location);
+                marker.setVisible(true);
+
+                var address = '';
+                var ville = '';
+                var cp = '';
+                if (place.address_components) {
+                    $.each(place.address_components, function(){
+                        if(this.types[0]=="locality"){
+                            ville = this.short_name;
+                        }
+                        else if(this.types[0]=="postal_code"){
+                            cp = this.short_name;
+                        }
+                    });
+                    address = [
+                        (cp || ''),
+                        (ville || '')
+                    ].join(' ');
+                }
+
+                infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+                infowindow.open(map, marker);
+                inputAdresse.value = place.name;
+                inputVille.value = ville;
+                inputCp.value = cp;
+            });
+        }
+
+        $("#sub").on("click", function() {
+            $('#erreur_sport').hide();
+            $('#erreur_cat').hide();
+            $('#erreur_niveau').hide();
+
+            if($("#appbundle_evenement_sport").val() == "") {
+                $("#erreur_sport").show();
+                window.scrollTo(0, 0);
+            }
+            if($("#appbundle_evenement_categorieAge").val() == "") {
+                $("#erreur_cat").show();
+                window.scrollTo(0, 0);
+            }
+            if($("#appbundle_evenement_niveau").val() == "") {
+                $("#erreur_niveau").show();
+                window.scrollTo(0, 0);
+            }
+        });
+
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtvin7m_v4pUhUPcwY33v0vJ2EJ1scQ9g&libraries=places&callback=initMap"
+            async defer>
+    </script>
+{% endblock %}
