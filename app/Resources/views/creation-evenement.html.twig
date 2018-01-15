@@ -101,18 +101,15 @@
                         <label for="description">Description de l'événement</label>
                     </div>
                     <div class="input-field col s12"></div>
+                    <div class="input-field col s12"></div>
                 </div>
                 <div class="col l5 s12 card-panel hoverable grey lighten-5 z-depth-1">
-                    <h5 class="header center-align">Demandes de bénévolat</h5>
-                    <div class="center-align">
-                        <a class="btn-floating waves-effect blue accent-3" id="boutonBenevoles"><i class="material-icons">add</i></a>
-                    </div>
-                    <div class="input-field col s12"></div>
-                    <div class="col s12" id="ajoutBenevoles" style="display:none">
-                        <br>
+                    <br>
+                    <h5 class="header center-align">Demandes de bénévolat</h5><br>
+                    <div class="col s12">
                         {{ form_row(form.demandesBenevolat) }}
+                        <br><br><br>
                     </div>
-                    <div class="input-field col s12"></div>
                 </div>
             </div>
         </div>
@@ -157,14 +154,6 @@
             autoclose: false, // automatic close timepicker
             ampmclickable: true, // make AM PM clickable
             aftershow: function(){} //Function for after opening timepicker
-        });
-
-        $("#boutonBenevoles").click(function(){
-            if($("#ajoutBenevoles").css('display') == 'none'){
-                $("#ajoutBenevoles").show();
-            }else {
-                $("#ajoutBenevoles").hide();
-            }
         });
 
         function initMap() {
