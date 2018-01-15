@@ -70,12 +70,19 @@ class CreerEvenementController extends Controller
         return new Response($content);
     }
 
-    public function editAction($id)
+    public function editAction($id, Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         $evtRepository = $this->getDoctrine()->getRepository(Evenement::class);
         $evt = $evtRepository->find($id);
         $form = $this->createForm(EvenementType::class, $evt);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($evt);
+            $em->flush();
+            return $this->redirectToRoute('espace_club');
+        }
         $content = $this->get('templating')->render('creation-evenement.html.twig', array(
             'form' => $form->createView(),
         ));

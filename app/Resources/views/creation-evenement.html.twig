@@ -1,6 +1,6 @@
 {% extends "layout.html.twig" %}
 
-{% block title %}Créer un événement{% endblock %}
+{% block title %}Créer/Modifier un événement{% endblock %}
 
 {% block content %}
 
@@ -79,8 +79,15 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col l7 s12 card-panel hoverable grey lighten-5 z-depth-1">
+            <div class="card-panel hoverable grey lighten-5 z-depth-1">
+                <div class="row">
+                    <div class="col s12">
+                        <div class="col s12">
+                            {{ form_row(form.demandesBenevolat) }}
+                            <br>
+                        </div>
+                    </div>
+                <div class="col s12">
                     <div class="input-field col l6 s12">
                         <i class="material-icons prefix">euro_symbol</i>
                         {{ form_widget(form.tarifPlein, {'attr': {'id': 'pleinTarif'} }) }}
@@ -100,25 +107,19 @@
                         <span class="red-text">{{ form_errors(form.description) }}</span>
                         <label for="description">Description de l'événement</label>
                     </div>
-                    <div class="input-field col s12"></div>
-                    <div class="input-field col s12"></div>
                 </div>
-                <div class="col l5 s12 card-panel hoverable grey lighten-5 z-depth-1">
-                    <br>
-                    <h5 class="header center-align">Demandes de bénévolat</h5><br>
-                    <div class="col s12">
-                        {{ form_row(form.demandesBenevolat) }}
-                        <br><br><br>
-                    </div>
                 </div>
             </div>
         </div>
-        <button class="btn waves-effect blue darken-2" id="sub" type="submit" name="action">Valider
-            <i class="material-icons right">send</i>
-        </button>
-        <button class="btn waves-effect waves-light grey" type="reset" name="action">Effacer
-            <i class="material-icons right">clear</i>
-        </button>
+        <div class="right">
+            <button class="btn waves-effect blue darken-2" id="sub" type="submit" name="action">Valider
+                <i class="material-icons right">send</i>
+            </button>
+            <button class="btn waves-effect waves-light grey" type="reset" name="action">Effacer
+                <i class="material-icons right">clear</i>
+            </button>
+        </div>
+        <br>
     </form>
 </div>
 <br>

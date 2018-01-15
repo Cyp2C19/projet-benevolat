@@ -56,7 +56,7 @@ class EvenementType extends AbstractType
             ))
             ->add('demandesBenevolat', EntityType::class, array(
                 'class'    => 'AppBundle\Entity\MissionBenevolat',
-                'label' => 'Sélection des missions',
+                'label' => 'Demande de bénévolat',
                 'choice_label' => 'type',
                 'multiple' => true,
                 'by_reference' => false,

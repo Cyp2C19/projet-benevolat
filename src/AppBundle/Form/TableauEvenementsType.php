@@ -26,7 +26,7 @@ class TableauEvenementsType extends AbstractType
                 'allow_add'    => true,
                 'prototype' => true,
                 'attr' => array(
-                    'class' => 'table selection_evenements',
+                    'class' => 'table selection_evenements highlight responsive-table',
                 ),
             ));
     }

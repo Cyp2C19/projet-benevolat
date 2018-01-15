@@ -49,30 +49,55 @@
                             <div class="modal-content">
                                 <div class="row">
                                     <div class="col s1">
-                                        <img src='{{ asset("img/sports/"~ evt.sport.intitule ~".png")}}' width="100%" class="circle">
+                                        <img src='{{ asset("img/sports/"~ evt.sport.intitule ~".png")}}' width="100%"
+                                             class="circle">
                                     </div>
                                     <div class="col s11">
                                         <h5>{{ evt.titre }}</h5>
+                                        Événement crée par : {{ evt.club.intitule.nom }}
                                     </div>
                                 </div>
-                                <div class="card-panel grey lighten-5 z-depth-2">
-                                    <b> <i class="material-icons">event</i> Dimanche 19 Novembre 2017 </b><br>
-                                    <b> <i class="material-icons">access_time</i>15h30</b><br>
-                                    <b> <i class="material-icons">location_on</i>2 Rue de la Fraternité - 86180 Buxerolles</b><br>
-                                    <b> <i class="material-icons">directions_run</i>Football</b>
-                                    <br><br>
+                                <div class="row">
+                                    <div class="card-panel grey lighten-5 z-depth-2 col s12">
+                                        <div class="col l6 s12">
+                                            <p>
+                                                <b>Sport :</b> {{ evt.sport.intitule }}<br>
+                                                <b>Niveau :</b> {{ evt.niveau.type }}<br>
+                                                <b>Catégorie :</b> {{ evt.categorieAge.type }}<br>
+                                                {% if evt.tarifPlein != null %}
+                                                    <b>Tarif plein :</b> {{ evt.tarifPlein }}<br>
+                                                {% endif %}
+                                                {% if evt.tarifReduit != null %}
+                                                    <b>Tarif réduit :</b> {{ evt.tarifReduit }}
+                                                {% endif %}
+                                            </p>
+                                        </div>
+                                        <div class="col l6 s12">
+                                            <p>
+                                                <i class="material-icons">event</i>
+                                                {% if evt.dateFin != null %}Du {{ evt.dateDebut|date('d/m/Y') }}
+                                                    au {{ evt.dateFin|date('d/m/Y') }}
+                                                {% else %}
+                                                 {{ evt.dateDebut|date('d/m/Y') }}
+                                                {% endif %}
+                                                <br>
+                                                <i class="material-icons">access_time</i> {{ evt.horaire|date('H:i') }} H<br>
+                                                <i class="material-icons">location_on</i> {{ evt.lieu.adresse }} -
+                                                 {{ evt.lieu.ville }} - {{ evt.lieu.codePostal }}<br>
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="card-panel grey lighten-5 z-depth-2">
-                                    <h5> Informations supplémentaires</h5>
+                                <div class="row">
+                                    <div class="card-panel grey lighten-5 z-depth-2">
+                                        <h5>Description</h5>
+                                        {{ evt.description }}
+                                    </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button class="button share_twitter" data-url="http://....">
-                                    Partager sur Twitter
-                                </button>
-                                <button class="button share_facebook" data-url="http://....">
-                                    Partager sur Facebook
-                                </button>
+                                <a class="waves-effect waves-light btn social facebook">
+                                    <i class="fa fa-facebook"></i> Partager sur Facebook</a>
                             </div>
                         </div>
 

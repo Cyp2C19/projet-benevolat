@@ -10,6 +10,8 @@
     {% block stylesheets %}
         <!--Import Google Icon Font-->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
         <!--Import materialize.css-->
         <link rel="stylesheet" href="{{ asset('css/materialize.css') }}" media="screen,projection"/>
         <link rel="stylesheet" href="{{ asset('css/style.css') }}" media="screen,projection"/>
@@ -57,7 +59,6 @@
             </ul>
             <ul class="left hide-on-med-and-down">
                 <li><a href="{{ path('accueil') }}">Accueil</a></li>
-                <li><a href="#footer">Contact</a></li>
             </ul>
             <ul class="side-nav" id="mobile-menu">
                 <li><a href="{{ path('accueil') }}">Accueil</a></li>
