@@ -23,6 +23,12 @@
                             <label>Intitulé de votre club</label>
                             <span class="red-text">{{ form_errors(form.intitule) }}</span>
                         </div>
+                        <div class="input-field col s12"></div>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">info_outline</i>
+                            {{ form_widget(form.sportParDefaut) }}
+                            <label>Sport par défaut associé au club</label>
+                        </div>
                         <div class="input-field col s12">
                             <i class="material-icons prefix">email</i>
                             {{ form_widget(form.email) }}

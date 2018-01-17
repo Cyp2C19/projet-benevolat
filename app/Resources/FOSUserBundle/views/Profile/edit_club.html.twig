@@ -1,7 +1,7 @@
 {% extends 'layout.html.twig' %}
 
 {% block title %}
-    Modification Club
+    Modification informations Club
 {% endblock title %}
 
 {% block content %}
@@ -9,12 +9,30 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block fos_user_content %}
-{{ form_start(form, { 'action': path('club_edit') }) }}
-    {{ form_widget(form) }}
-    <div>
-        <input type="submit" value="{{ 'Valider'|trans }}" />
+    <div class="container">
+        <br><br>
+        <div class="card-panel hoverable grey lighten-5 z-depth-1">
+            {{ form_start(form, { 'action': path('club_edit') }) }}
+                {{ form_widget(form) }}<br>
+            <a href="{{ path('fos_user_change_password') }}">Modifier mon mot de passe</a><br><br>
+                <div class="right">
+                    <button class="btn waves-effect blue darken-2" id="sub" type="submit" name="action">Mettre à jour
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+                <br><br>
+            {{ form_end(form) }}
+        </div>
+        <br><br>
     </div>
-{{ form_end(form) }}
+
 {% endblock fos_user_content %}
 
 {% endblock content %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $('select').material_select();
+    </script>
+{% endblock %}

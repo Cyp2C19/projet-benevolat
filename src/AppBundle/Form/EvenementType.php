@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Sport;
 use AppBundle\Form\Type\DateAndTimeType;
 use AppBundle\Form\Type\TimerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -19,6 +20,8 @@ class EvenementType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $sportParDefaut = $options['sportParDefaut'];
+
         $builder
             ->add('titre', TextareaType::class)
             ->add('tarifPlein', NumberType::class, array(
@@ -52,11 +55,12 @@ class EvenementType extends AbstractType
                 'class'    => 'AppBundle\Entity\Sport',
                 'choice_label' => 'intitule',
                 'placeholder' => 'Choix d\'un sport',
+                'data' => $sportParDefaut,
                 'multiple' => false
             ))
             ->add('demandesBenevolat', EntityType::class, array(
                 'class'    => 'AppBundle\Entity\MissionBenevolat',
-                'label' => 'Demande de bénévolat',
+                'label' => 'Demandes de bénévolat',
                 'choice_label' => 'type',
                 'multiple' => true,
                 'by_reference' => false,
@@ -72,6 +76,8 @@ class EvenementType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Evenement'
         ));
+        $resolver->setRequired('sportParDefaut');
+        //$resolver->setAllowedTypes('sportParDefaut', array(Sport::class, null));
     }
 
     /**

@@ -36,8 +36,19 @@ class Club extends Utilisateur
     // ...
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Evenement", mappedBy="club", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OrderBy({"dateModification" = "DESC"})
      */
     private $evenements;
+
+    /**
+     * @var \AppBundle\Entity\Sport
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Sport")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="sportParDefaut", referencedColumnName="id", nullable=true)
+     * })
+     */
+    private $sportParDefaut;
 
     /**
      * @return mixed
@@ -77,6 +88,22 @@ class Club extends Utilisateur
     public function getEvenements()
     {
         return $this->evenements;
+    }
+
+    /**
+     * @return Sport
+     */
+    public function getSportParDefaut()
+    {
+        return $this->sportParDefaut;
+    }
+
+    /**
+     * @param Sport $sportParDefaut
+     */
+    public function setSportParDefaut($sportParDefaut)
+    {
+        $this->sportParDefaut = $sportParDefaut;
     }
 
     /**

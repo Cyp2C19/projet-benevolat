@@ -19,8 +19,10 @@ class CreerEvenementController extends Controller
     public function indexAction(Request $request)
     {
         $evt = new Evenement();
+        $club = $this->getUser();
 
-        $form = $this->createForm(EvenementType::class, $evt);
+        $form = $this->createForm(EvenementType::class, $evt, array(
+            'sportParDefaut' => $club->getSportParDefaut()));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -29,7 +31,7 @@ class CreerEvenementController extends Controller
             // Date de création => Aujourd'hui
             $evt->setDateModification(new \DateTime());
             // Club connecté
-            $evt->setClub($this->getUser());
+            $evt->setClub($club);
 
             // Récupération champs adresse
             foreach ($form->get('lieu') as $lieuForm) {
@@ -60,7 +62,7 @@ class CreerEvenementController extends Controller
             $em->flush();
 
             // TODO: Rediriger vers la page de gestion du club
-            return $this->redirectToRoute('accueil');
+            return $this->redirectToRoute('espace_club');
         }
 
         $content = $this->get('templating')->render('creation-evenement.html.twig', array(

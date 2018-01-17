@@ -8,7 +8,6 @@
 
 namespace AppBundle\Form;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 
@@ -21,6 +20,13 @@ class RegistrationClubFormType extends AbstractType
                 'class'    => 'AppBundle\Entity\NomClub',
                 'choice_label' => 'nom',
                 'placeholder' => 'Choix d\'un club',
+                'multiple' => false
+            ))
+            ->add('sportParDefaut', EntityType::class, array(
+                'class'    => 'AppBundle\Entity\Sport',
+                'choice_label' => 'intitule',
+                'placeholder' => 'Choix d\'un sport',
+                'required' => false,
                 'multiple' => false
             ))
             ->remove('username');

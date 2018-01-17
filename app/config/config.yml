@@ -82,7 +82,7 @@ fos_user:
         user_manager: pugx_user_manager
     from_email:
         address: "mailer.symfony.test@gmail.com"
-        sender_name: "Allo"
+        sender_name: "Bénévolat"
 
 pugx_multi_user:
   users:
@@ -100,6 +100,7 @@ pugx_multi_user:
              type: AppBundle\Form\ProfileClubFormType
              name: fos_user_profile_form
              validation_groups:  [Profile, Default]
+           template: FOSUserBundle:Profile:edit_club.html.twig
     benevole:
             entity:
               class: AppBundle\Entity\Benevole
