@@ -20,7 +20,7 @@ class EvenementType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $sportParDefaut = $options['sportParDefaut'];
+        $sport = $options['sport'];
 
         $builder
             ->add('titre', TextareaType::class)
@@ -35,7 +35,9 @@ class EvenementType extends AbstractType
             ->add('dateDebut', DateAndTimeType::class)
             ->add('dateFin', DateAndTimeType::class)
             ->add('horaire', TimerType::class)
-            ->add('description', TextareaType::class)
+            ->add('description', TextareaType::class, array(
+                'required'    => false,
+            ))
             ->add('lieu', LieuType::class, array(
                 'constraints' => array(new Valid()),
             ))
@@ -55,7 +57,7 @@ class EvenementType extends AbstractType
                 'class'    => 'AppBundle\Entity\Sport',
                 'choice_label' => 'intitule',
                 'placeholder' => 'Choix d\'un sport',
-                'data' => $sportParDefaut,
+                'data' => $sport,
                 'multiple' => false
             ))
             ->add('demandesBenevolat', EntityType::class, array(
@@ -76,8 +78,7 @@ class EvenementType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Evenement'
         ));
-        $resolver->setRequired('sportParDefaut');
-        //$resolver->setAllowedTypes('sportParDefaut', array(Sport::class, null));
+        $resolver->setRequired('sport');
     }
 
     /**

@@ -37,7 +37,7 @@ class Lieu
 
     /**
      * @var string
-     * @ORM\Column(name="CodePostal", type="string", length=5, nullable=false)
+     * @ORM\Column(name="CodePostal", type="string", length=5, nullable=true)
      */
     private $codePostal;
 

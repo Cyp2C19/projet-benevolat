@@ -22,7 +22,7 @@ class CreerEvenementController extends Controller
         $club = $this->getUser();
 
         $form = $this->createForm(EvenementType::class, $evt, array(
-            'sportParDefaut' => $club->getSportParDefaut()));
+            'sport' => $club->getSportParDefaut()));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -77,7 +77,8 @@ class CreerEvenementController extends Controller
         $em = $this->getDoctrine()->getManager();
         $evtRepository = $this->getDoctrine()->getRepository(Evenement::class);
         $evt = $evtRepository->find($id);
-        $form = $this->createForm(EvenementType::class, $evt);
+        $form = $this->createForm(EvenementType::class, $evt, array(
+            'sport' => $evt->getSport()));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

@@ -31,7 +31,7 @@
                 <div class="row">
                     {% for evt in events %}
                         <div class="card small hoverable col l4 s12">
-                            <img src='{{ asset("img/sports/"~ evt.sport.intitule ~".png")}}' class="circle" width="8%"/>
+                            <img src='{{ asset("img/sports/"~ evt.sport.intitule ~".png")}}' class="circle" width="10%"/>
                             <span style="font-size: 14px;"><b>{{ evt.titre }}</b></span><br>
                             <span style="font-size: 12px;">
                                 Le {{ evt.dateDebut|date('d/m/Y') }} à {{ evt.horaire|date('H:i') }} H<br>
@@ -49,7 +49,7 @@
                             <div class="modal-content">
                                 <div class="row">
                                     <div class="col s1">
-                                        <img src='{{ asset("img/sports/"~ evt.sport.intitule ~".png")}}' width="100%"
+                                        <img src='{{ asset("img/sports/"~ evt.sport.intitule ~".png")}}' width="135%"
                                              class="circle">
                                     </div>
                                     <div class="col s11">

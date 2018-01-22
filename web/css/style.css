@@ -210,7 +210,7 @@ textarea.materialize-textarea:focus:not([readonly]) + label {
 .card.small {
   height: 125px;
   padding: 8px 20px;
-  padding-left: 47px;
+  padding-left: 46px;
 }
 
 .card .card-title {
@@ -220,7 +220,7 @@ textarea.materialize-textarea:focus:not([readonly]) + label {
 .card.small .circle {
   position: absolute;
   overflow: hidden;
-  left: 15px;
+  left: 8px;
   display: inline-block;
   vertical-align: middle;
 }
