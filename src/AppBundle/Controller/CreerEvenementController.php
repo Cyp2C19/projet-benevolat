@@ -65,7 +65,7 @@ class CreerEvenementController extends Controller
             return $this->redirectToRoute('espace_club');
         }
 
-        $content = $this->get('templating')->render('creation-evenement.html.twig', array(
+        $content = $this->get('templating')->render('evenement.html.twig', array(
             'form' => $form->createView(),
             ));
 
@@ -86,7 +86,7 @@ class CreerEvenementController extends Controller
             $em->flush();
             return $this->redirectToRoute('espace_club');
         }
-        $content = $this->get('templating')->render('creation-evenement.html.twig', array(
+        $content = $this->get('templating')->render('evenement.html.twig', array(
             'form' => $form->createView(),
         ));
 

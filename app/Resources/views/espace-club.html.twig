@@ -41,7 +41,8 @@
             allow_down: false,
             allow_duplicate: true,
             elements_selector: 'tr.item',
-            elements_parent_selector: '%id% tbody'
+            elements_parent_selector: '%id% tbody',
+            before_remove: function(collection, element) { return confirm("Voulez-vous vraiment supprimer l'événement ?"); }
         });
 
         function initPickers() {

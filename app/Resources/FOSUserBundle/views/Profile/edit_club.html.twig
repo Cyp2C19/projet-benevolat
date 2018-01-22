@@ -13,7 +13,18 @@
         <br><br>
         <div class="card-panel hoverable grey lighten-5 z-depth-1">
             {{ form_start(form, { 'action': path('club_edit') }) }}
-                {{ form_widget(form) }}<br>
+            <div class="input-field col s12">
+                <i class="material-icons prefix">info_outline</i>
+                {{ form_widget(form.sportParDefaut) }}
+                <label>Sport par défaut associé au club</label>
+            </div>
+            <br>
+            <div class="input-field col s12">
+                <i class="material-icons prefix">email</i>
+                {{ form_widget(form.email) }}
+                <label>Adresse email</label>
+            </div>
+            <br>
             <a href="{{ path('fos_user_change_password') }}">Modifier mon mot de passe</a><br><br>
                 <div class="right">
                     <button class="btn waves-effect blue darken-2" id="sub" type="submit" name="action">Mettre à jour
