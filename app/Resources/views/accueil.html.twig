@@ -30,83 +30,97 @@
     </div>
 
     <div class="section" id="evenements">
-    <div class="row">
-        <div class="col l9 s12 push-l3 ">
-            <div class="col s12">
-                <div class="row">
-                    {% for evt in events %}
-                        <div class="card small hoverable col l4 s12">
-                            <img src='{{ asset("img/sports/"~ evt.sport.intitule ~".png")}}' class="circle" width="10%"/>
-                            <span style="font-size: 14px;"><b>{{ evt.titre }}</b></span><br>
-                            <span style="font-size: 12px;">
-                                Le {{ evt.dateDebut|date('d/m/Y') }} à {{ evt.horaire|date('H:i') }} H<br>
-                                {{ evt.lieu.adresse }} - {{ evt.lieu.ville }}
-                            </span>
-                            <a href="#detail_evenement{{ evt.id }}" class="modal-trigger secondary-content btn-floating halfway-fab waves-effect waves-light blue accent-3"><i class="material-icons">add</i></a>
-                            <div class="card-action">
-                                {% if evt.contientDemandesBenevolat() %}
-                                    <a href="#inscription_benevolat" class=" btn-small blue accent-3 modal-trigger">Besoin de bénévoles !</a>
-                                {% endif %}
-                            </div>
-                        </div>
-
-                        <div id="detail_evenement{{ evt.id }}" class="modal modal-fixed-footer">
-                            <div class="modal-content">
-                                <div class="row">
-                                    <div class="col s1">
-                                        <img src='{{ asset("img/sports/"~ evt.sport.intitule ~".png")}}' width="135%"
-                                             class="circle">
-                                    </div>
-                                    <div class="col s11">
-                                        <h5>{{ evt.titre }}</h5>
-                                        Événement crée par : {{ evt.club.intitule.nom }}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="card-panel grey lighten-5 z-depth-2 col s12">
-                                        <div class="col l6 s12">
-                                            <p>
-                                                <b>Sport :</b> {{ evt.sport.intitule }}<br>
-                                                <b>Niveau :</b> {{ evt.niveau.type }}<br>
-                                                <b>Catégorie :</b> {{ evt.categorieAge.type }}<br>
-                                                {% if evt.tarifPlein != null %}
-                                                    <b>Tarif plein :</b> {{ evt.tarifPlein }}<br>
-                                                {% endif %}
-                                                {% if evt.tarifReduit != null %}
-                                                    <b>Tarif réduit :</b> {{ evt.tarifReduit }}
-                                                {% endif %}
-                                            </p>
-                                        </div>
-                                        <div class="col l6 s12">
-                                            <p>
-                                                <i class="material-icons">event</i>
-                                                {% if evt.dateFin != null %}Du {{ evt.dateDebut|date('d/m/Y') }}
-                                                    au {{ evt.dateFin|date('d/m/Y') }}
-                                                {% else %}
-                                                 {{ evt.dateDebut|date('d/m/Y') }}
-                                                {% endif %}
-                                                <br>
-                                                <i class="material-icons">access_time</i> {{ evt.horaire|date('H:i') }} H<br>
-                                                <i class="material-icons">location_on</i> {{ evt.lieu.adresse }} -
-                                                 {{ evt.lieu.ville }} - {{ evt.lieu.codePostal }}<br>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="card-panel grey lighten-5 z-depth-2">
-                                        <h5>Description</h5>
-                                        {{ evt.description }}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <a class="waves-effect waves-light btn social facebook">
-                                    <i class="fa fa-facebook"></i> Partager sur Facebook</a>
-                            </div>
-                        </div>
-                    {% endfor %}
+        <div class="row">
+            <div class="card col s12">
+                <div class="input-field col s4">
+                    <i class="material-icons prefix">directions_run</i>
+                    <input id="icon_prefix" type="text" class="validate">
+                    <label for="icon_prefix">Choix du sport</label>
                 </div>
+                <div class="input-field col s4">
+                    <i class="material-icons prefix">event</i>
+                    <input id="icon_prefix" type="text" class="validate">
+                    <label for="icon_prefix">Date</label>
+                </div>
+                <div class="input-field col s4">
+                    <i class="material-icons prefix">add_location</i>
+                    <input id="icon_prefix" type="text" class="validate">
+                    <label for="icon_prefix">Lieu</label>
+                </div>
+            </div>
+            <div class="col s12">
+                {% for evt in events %}
+                    <div class="card small hoverable col l3 s12">
+                        <img src='{{ asset("img/sports/"~ evt.sport.intitule ~".png")}}' class="circle" width="10%"/>
+                        <span style="font-size: 14px;"><b>{{ evt.titre }}</b></span><br>
+                        <span style="font-size: 12px;">
+                            Le {{ evt.dateDebut|date('d/m/Y') }} à {{ evt.horaire|date('H:i') }} H<br>
+                            {{ evt.lieu.adresse }} - {{ evt.lieu.ville }}
+                        </span>
+                        <a href="#detail_evenement{{ evt.id }}" class="modal-trigger secondary-content btn-floating halfway-fab waves-effect waves-light blue accent-3"><i class="material-icons">add</i></a>
+                        <div class="card-action">
+                            {% if evt.contientDemandesBenevolat() %}
+                                <a href="#inscription_benevolat" class=" btn-small blue accent-3 modal-trigger">Besoin de bénévoles !</a>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div id="detail_evenement{{ evt.id }}" class="modal modal-fixed-footer">
+                        <div class="modal-content">
+                            <div class="row">
+                                <div class="col s1">
+                                    <img src='{{ asset("img/sports/"~ evt.sport.intitule ~".png")}}' width="135%"
+                                         class="circle">
+                                </div>
+                                <div class="col s11">
+                                    <h5>{{ evt.titre }}</h5>
+                                    Événement crée par : {{ evt.club.intitule.nom }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="card-panel grey lighten-5 z-depth-2 col s12">
+                                    <div class="col l6 s12">
+                                        <p>
+                                            <b>Sport :</b> {{ evt.sport.intitule }}<br>
+                                            <b>Niveau :</b> {{ evt.niveau.type }}<br>
+                                            <b>Catégorie :</b> {{ evt.categorieAge.type }}<br>
+                                            {% if evt.tarifPlein != null %}
+                                                <b>Tarif plein :</b> {{ evt.tarifPlein }}<br>
+                                            {% endif %}
+                                            {% if evt.tarifReduit != null %}
+                                                <b>Tarif réduit :</b> {{ evt.tarifReduit }}
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                    <div class="col l6 s12">
+                                        <p>
+                                            <i class="material-icons">event</i>
+                                            {% if evt.dateFin != null %}Du {{ evt.dateDebut|date('d/m/Y') }}
+                                                au {{ evt.dateFin|date('d/m/Y') }}
+                                            {% else %}
+                                             {{ evt.dateDebut|date('d/m/Y') }}
+                                            {% endif %}
+                                            <br>
+                                            <i class="material-icons">access_time</i> {{ evt.horaire|date('H:i') }} H<br>
+                                            <i class="material-icons">location_on</i> {{ evt.lieu.adresse }} -
+                                             {{ evt.lieu.ville }} - {{ evt.lieu.codePostal }}<br>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="card-panel grey lighten-5 z-depth-2">
+                                    <h5>Description</h5>
+                                    {{ evt.description }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="waves-effect waves-light btn social facebook">
+                                <i class="fa fa-facebook"></i> Partager sur Facebook</a>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
             {% if maxPages > 1 %}
             <div class="col s12 card-panel z-depth-2">
@@ -133,61 +147,6 @@
             </div>
             {% endif %}
         </div>
-
-        <div class="col l3 s12 pull-l9">
-            <div class="col s12 ">
-                <ul class="collapsible z-depth-2 popout" data-collapsible="expandable">
-                    <li>
-                        <div class="collapsible-header grey lighten-3"><i class="material-icons">directions_run</i>Sports</div>
-                        <div class="collapsible-body">
-                            <div class="input-field">
-                                <div class="autocomplete" id="multiple">
-                                    <br>
-                                    <div class="ac-users"></div>
-                                    <div class="ac-input">
-                                        <input type="text" id="multipleInput" placeholder="Entrez quelques lettres" data-activates="multipleDropdown" data-beloworigin="true" autocomplete="off">
-                                    </div>
-                                    <ul id="multipleDropdown" class="dropdown-content ac-dropdown"></ul>
-                                    <input type="hidden" name="multipleHidden" />
-                                </div>
-                                <label class="active" for="multipleInput">Disciplines</label>
-                            </div>
-                            <div class="input-field">
-                                <select  class="icons" multiple>
-                                    <option value="" disabled selected></option>
-                                    <option value="">Jeunes</option>
-                                    <option value="">Adultes</option>
-                                    <option value="">Tout public</option>
-                                </select>
-                                <label>Catégories d'âge</label>
-                            </div>
-                            <br>
-                            <div class="input-field">
-                                <select  class="icons" multiple>
-                                    <option value="" disabled selected></option>
-                                    <option value="">Départemental</option>
-                                    <option value="">Régional</option>
-                                    <option value="">National</option>
-                                    <option value="">International</option>
-                                </select>
-                                <label>Niveaux</label>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="collapsible-header grey lighten-3"><i class="material-icons">event</i>Dates</div>
-                        <div class="collapsible-body">
-
-                        </div>
-                    </li>
-                    <li>
-                        <div class="collapsible-header grey lighten-3"><i class="material-icons">add_location</i>Lieux</div>
-                        <div class="collapsible-body"></div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
     </div>
 
     <div id="benevolat" class="parallax-container">
