@@ -16,7 +16,7 @@ class AccueilController extends Controller
         if($page == 0){
             $page = 1;
         }
-        $limit = 6;
+        $limit = 12;
         $em = $this->getDoctrine()->getManager();
         $evenements = $em->getRepository('AppBundle:Evenement')->getAllEvenements($page, $limit);
         $maxPages = ceil(count($evenements) / $limit);
