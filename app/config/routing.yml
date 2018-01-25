@@ -1,6 +1,6 @@
 accueil:
     path:     /
-    defaults: { _controller: AppBundle:Accueil:index }
+    defaults: { _controller: AppBundle:Accueil:index}
 
 detail_evenement:
     path:     /evenement

@@ -51,7 +51,7 @@
 }
 
 .opacity {
-  opacity: 0.92;
+  opacity: 0.85;
 }
 
 .icon-block {
@@ -276,6 +276,13 @@ textarea.materialize-textarea:focus:not([readonly]) + label {
   color: #202020;
 }
 
-#btn-tab{
+.btn-dupliquer, .btn-edit, .btn-supprimer{
   padding: 0 0.5rem;
+}
+
+#boutonFixe
+{
+  position:fixed;
+  bottom: 10px;
+  right: 10px;
 }

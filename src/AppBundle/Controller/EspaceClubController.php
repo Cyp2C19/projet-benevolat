@@ -30,7 +30,7 @@ class EspaceClubController extends Controller
         }
 
         $content = $this->get('templating')->render('espace-club.html.twig', array(
-            'form' => $form->createView()));
+            'form' => $form->createView(), 'club' => $club));
         return new Response($content);
     }
 }

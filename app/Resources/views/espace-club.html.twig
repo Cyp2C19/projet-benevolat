@@ -6,8 +6,8 @@
 
     <div class="container">
         <br>
-        <h4 class="center">MON ESPACE CLUB</h4>
-        <div class="center">
+        <div class="row center">
+        <h4>MON ESPACE CLUB</h4>
             <a href="{{ path('club_edit') }}" class="btn waves-effect waves-light blue accent-3">
                 Modifier mes informations
             </a>
@@ -15,17 +15,23 @@
                 Créer un événement
             </a>
         </div>
-        <br>
-        <h5 class="left">MES ÉVÉVENEMENTS</h5><br><br>
-        <div class="card-panel grey lighten-5 z-depth-2">
-            <div class="row">
-                <div class="col s12">
+        <div class="row left">
+            <div class="col s12">
+                <h5>MES ÉVÉVENEMENTS</h5>
+                Veuillez valider vos actions après avoir modifié, supprimé,
+                ou dupliqué des événements du tableau.
+            </div>
+        </div>
+        <div class="row">
+            <div class="card-panel grey lighten-5 z-depth-2 col s12" id="tableauEvenements">
                     {% form_theme form 'evenements.collection.html.twig' %}
                     {{ form(form) }}
-                </div>
             </div>
         </div>
     </div>
+    <a href="#tableauEvenements" id="boutonFixe" class="btn-floating waves-effect waves-light blue darken-4">
+        <i class="material-icons">keyboard_arrow_up</i>
+    </a>
 <br>
 {% endblock %}
 
@@ -35,6 +41,7 @@
     <script type="text/javascript">
 
         $('select').material_select();
+        $('.scrollspy').scrollSpy();
 
         $('.selection_evenements').collection({
             allow_up: false,
@@ -72,8 +79,20 @@
             initPickers();
         });
 
-        $( document ).on( "click", "#btn-tab", function() {
+        $( document ).on( "click", ".btn-dupliquer", function() {
             initPickers();
+        });
+
+        $( document ).on( "click", ".btn-dupliquer", function() {
+            $(".btn-edit").attr('href', '').css({'cursor': 'pointer', 'pointer-events' : 'none'});
+        });
+
+        $('form[name="TableauEvenementsType"]').submit(function() {
+            $(window).unbind('beforeunload');
+        });
+
+        $(window).bind('beforeunload', function(){
+            return 'Are you sure you want to leave?';
         });
 
     </script>

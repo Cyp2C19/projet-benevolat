@@ -12,31 +12,30 @@
         {% set attr = attr|merge({'data-allow-add': allow_add ? 1 : 0}) %}
         {% set attr = attr|merge({'data-allow-remove': allow_delete ? 1 : 0 }) %}
         {% set attr = attr|merge({'data-name-prefix': full_name}) %}
-
-            <table {{ block('widget_attributes') }} >
-                <thead>
-                <th>Titre</th>
-                <th>Date de début</th>
-                <th>Date de fin</th>
-                <th>Horaire</th>
-                <th>&nbsp;</th>
-                <th>&nbsp;</th>
-                <th>&nbsp;</th>
-                </thead>
-                <tbody>
-
-                {% for item in form %}
-                    {{ form_widget(item) }}
-                {% endfor %}
-
-                </tbody>
-            </table>
         <br>
-        <div class="right-align">
-            <button class="btn waves-effect blue darken-2" id="sub" type="submit" name="action">Valider les actions
+        <div class="right">
+            <button class="btn waves-effect blue darken-2" id="sub" type="submit" name="action">Valider
                 <i class="material-icons right">send</i>
             </button>
         </div>
+        <table {{ block('widget_attributes') }} >
+            <thead>
+            <th>Titre</th>
+            <th>Date de début</th>
+            <th>Date de fin</th>
+            <th>Horaire</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            </thead>
+            <tbody>
+
+            {% for item in form %}
+                {{ form_widget(item) }}
+            {% endfor %}
+
+            </tbody>
+        </table>
     {% endspaceless %}
 
 {% endblock %}
@@ -58,13 +57,13 @@
             {{ form_widget(form.sport) }}
         </td>
         <td class="center-align">
-            <a href="{{ path('modifier_evenement',{"id": form.id.vars.value})}}" id="btn-tab" class="btn waves-effect blue darken-2" title="Modifier"><i class="material-icons">edit</i></a>
+            <a href="{{ path('modifier_evenement',{"id": form.id.vars.value})}}" class="btn waves-effect blue darken-2 btn-edit" title="Modifier"><i class="material-icons">edit</i></a>
         </td>
         <td class="center-align">
-            <a href="#" id="btn-tab" class="btn waves-effect blue darken-2 TableauEvenementsType_evenements-collection-duplicate TableauEvenementsType_evenements-collection-action" title="Dupliquer"><i class="material-icons">content_copy</i></a>
+            <a href="#" class="btn waves-effect blue darken-2 TableauEvenementsType_evenements-collection-duplicate TableauEvenementsType_evenements-collection-action btn-dupliquer" title="Dupliquer"><i class="material-icons">content_copy</i></a>
         </td>
         <td class="center-align">
-            <a href="#" id="btn-tab" class="btn waves-effect blue darken-2 TableauEvenementsType_evenements-collection-remove TableauEvenementsType_evenements-collection-action" title="Supprimer"><i class="material-icons">clear</i></a>
+            <a href="#" id="btn-tab" class="btn waves-effect blue darken-2 TableauEvenementsType_evenements-collection-remove TableauEvenementsType_evenements-collection-action btn-supprimer" title="Supprimer"><i class="material-icons">clear</i></a>
         </td>
     </tr>
 

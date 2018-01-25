@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Evenement
  *
  * @ORM\Table(name="evenement", indexes={@ORM\Index(name="FK_IDSPORT_EVENEMENT", columns={"sport"}), @ORM\Index(name="FK_IDCLUB_EVENEMENT", columns={"club"}), @ORM\Index(name="FK_IDLIEU_EVENEMENT", columns={"lieu"}), @ORM\Index(name="FK_IDNIVEAU_EVENEMENT", columns={"niveau"}), @ORM\Index(name="FK_IDCATEGORIEAGE_EVENEMENT", columns={"categorieAge"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\EvenementRepository")
  */
 class Evenement
 {

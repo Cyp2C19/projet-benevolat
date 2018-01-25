@@ -117,5 +117,5 @@ class Club extends Utilisateur
     public function __construct() {
         $this->evenements = new ArrayCollection();
     }
-}
 
+}

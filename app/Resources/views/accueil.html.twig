@@ -5,23 +5,28 @@
 {% block content %}
 
     <div id="banniere" class="parallax-container">
-        <div class="section no-pad-bot">
-            <div class="container">
+        <div class="section no-pad-bot"><br><br>
+            <div class="row">
+            <div class="card col l5 offset-l1 s12 z-depth-4">
+                <h4 class="header center blue-text text-accent-3">Académie du Bénévolat</h4>
+                <div class="row center">
+                    <p align="justify" style="font-size: 18px;" class="light">
+                        Consultez les événements à venir dans toute la Vienne et pour un grand nombre de sports.<br>
+                        Si vous êtes un club sportif, inscrivez-vous pour enregistrer vos événements et effectuer des
+                        demandes de bénévolat.<br>
+                        Sinon, inscrivez-vous en tant que bénévole et prenez contact avec les clubs pour
+                        participer à des missions de bénévolat.
+                    </p>
+                </div>
+                <div class="row center">
+                    <a href="#evenements" class="btn-large waves-effect waves-light blue accent-3">Les évenements à venir</a>
+                    <a href="#benevolat" class="btn-large waves-effect waves-light blue accent-3">Devenez bénevole</a>
+                </div>
                 <br>
-                 <div class="card opacity"><br>
-                    <h4 class="header center blue-text text-accent-3">Académie du Bénévolat</h4>
-                    <div class="row center">
-                        <h5 class="header col s12 light">Présentation de l'application</h5>
-                    </div>
-                    <div class="row center">
-                        <a href="#evenements" class="btn-large waves-effect waves-light blue accent-3">Les évenements à venir</a>
-                        <a href="#benevolat" class="btn-large waves-effect waves-light blue accent-3">Devenez bénevole</a>
-                    </div>
-                    <br>
-                 </div>
             </div>
         </div>
-        <div class="parallax"></div>
+        </div>
+        <div class="parallax"><img src='{{ asset("img/carteVienne.png")}}'></div>
     </div>
 
     <div class="section" id="evenements">
@@ -100,18 +105,33 @@
                                     <i class="fa fa-facebook"></i> Partager sur Facebook</a>
                             </div>
                         </div>
-
                     {% endfor %}
                 </div>
             </div>
-
+            {% if maxPages > 1 %}
             <div class="col s12 card-panel z-depth-2">
                 <ul class="pagination right">
-                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-                    <li class="active"><a href="#!">1</a></li>
-                    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+                    {# `«` flèche gauche #}
+                    <li {{ thisPage == 1 ? 'class="disabled"' }}>
+                        <a href="{{ path('accueil', {"page": thisPage - 1 < 1 ? 1 : thisPage-1}) ~ "#evenements" }}">
+                            <i class="material-icons">chevron_left</i>
+                        </a>
+                    </li>
+                    {# Numéros de pages #}
+                    {% for i in 1..maxPages %}
+                        <li {{ thisPage == i ? 'class="active"' }}>
+                            <a href="{{ path('accueil', {"page": i}) ~ "#evenements" }}">{{ i }}</a>
+                        </li>
+                    {% endfor %}
+                    {# `»` flèche droite #}
+                    <li {{ thisPage == maxPages ? 'class="disabled"' }}>
+                        <a href="{{ path('accueil', {"page": thisPage+1 <= maxPages ? thisPage+1 : thisPage}) ~ "#evenements" }}">
+                            <i class="material-icons">chevron_right</i>
+                        </a>
+                    </li>
                 </ul>
             </div>
+            {% endif %}
         </div>
 
         <div class="col l3 s12 pull-l9">
@@ -172,12 +192,16 @@
 
     <div id="benevolat" class="parallax-container">
         <div class="section no-pad-bot">
-            <div class="container">
-                <div class="card opacity">
+            <div class="row">
+                <div class="card col l5 offset-l6 s12 z-depth-4">
                     <br>
                     <h4 class="header center blue-text text-accent-3">Devenez bénévole</h4>
                     <div class="row center">
-                        <h5 class="header col s12 light">Petit texte sur le bénévolat</h5>
+                        <div class="row center">
+                            <p align="justify" style="font-size: 18px;" class="light">
+                                Petit texte sur le bénévolat
+                            </p>
+                        </div>
                     </div>
                     <div class="row center">
                         <a href="{{ path('benevole_registration') }}" class="btn-large waves-effect waves-light blue accent-3">S'inscrire</a>
@@ -188,9 +212,6 @@
         </div>
         <div class="parallax"></div>
     </div>
-
-    <button id="ajax">Test!</button>
-    <div id="ajax-results">here comes the result</div>
 
     <div id="inscription_benevolat" class="modal modal-fixed-footer">
         <div class="modal-content">
@@ -251,20 +272,6 @@
     <script type="text/javascript" src="{{ asset('js/jquery.materialize-autocomplete.js') }}"></script>
 
     <script type="text/javascript">
-        $(document).on('click', '#ajax', function(){
-            that = $(this);
-            $.ajax({
-                url:'{{ (path('detail_evenement')) }}',
-                type: "POST",
-                data: "&id=2",
-                dataType: "json",
-                complete: function(data) {
-                    $('#ajax-results').html(data).show();
-                }
-            });
-            return false;
-        });
-
         $(".dropdown-button").dropdown();
         $("select").material_select();
         $('.scrollspy').scrollSpy();
