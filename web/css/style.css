@@ -283,6 +283,6 @@ textarea.materialize-textarea:focus:not([readonly]) + label {
 #boutonFixe
 {
   position:fixed;
-  bottom: 10px;
+  bottom: 40%;
   right: 10px;
 }
