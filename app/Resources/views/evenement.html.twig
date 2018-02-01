@@ -17,23 +17,24 @@
                         {{ form_widget(form.titre, {'attr': {'id': 'titre', 'class': 'materialize-textarea',
                             'data-length':'40'} }) }}
                         <span class="red-text">{{ form_errors(form.titre) }}</span>
-                        <label for="titre">Titre</label>
+                        <label for="titre">Titre *</label>
                     </div>
                     <div class="input-field col s12">
                         {{ form_widget(form.sport, {'attr': {'name': 'sports'} }) }}
-                        <label>Sport</label>
+                        <label>Sport *</label>
                         <span class="red-text" id="erreur_sport" style="display:none">Veuillez sélectionner un sport</span>
                     </div>
                     <div class="input-field col s12">
                         {{ form_widget(form.categorieAge) }}
-                        <label>Catégorie</label>
+                        <label>Catégorie *</label>
                         <span class="red-text" id="erreur_cat" style="display:none">Veuillez sélectionner une catégorie</span>
                     </div>
                     <div class="input-field col s12">
                         {{ form_widget(form.niveau) }}
-                        <label>Niveau</label>
+                        <label>Niveau *</label>
                         <span class="red-text" id="erreur_niveau" style="display:none">Veuillez sélectionner un niveau</span>
                     </div>
+
                     <div class="input-field col s12"></div>
                 </div>
                 <div class="col l6 s12 card-panel hoverable grey lighten-5 z-depth-1">
@@ -41,7 +42,7 @@
                     <div class="input-field col s12">
                         <i class="material-icons prefix">event</i>
                         {{ form_widget(form.dateDebut, {'attr': {'class': 'datepicker', 'id': 'datepickDeb'} }) }}
-                        <label for="datepickDeb">Date de début</label>
+                        <label for="datepickDeb">Date de début *</label>
                         <span class="red-text">{{ form_errors(form.dateDebut) }}</span>
                     </div>
                     <div class="input-field col s12">
@@ -51,7 +52,7 @@
                     </div>
                     <div class="input-field col s12">
                         <i class="material-icons prefix">access_time</i>
-                        {{ form_widget(form.horaire, {'attr': {'class': 'timepicker', 'placeholder': 'Horaire'} }) }}
+                        {{ form_widget(form.horaire, {'attr': {'class': 'timepicker', 'placeholder': 'Horaire *'} }) }}
                     </div>
                     <div class="input-field col s12"></div>
                     <div class="switch col l8 s12">
@@ -101,14 +102,16 @@
                     </div>
                     <div class="input-field col l10 offset-l1 s12">
                         <div class="row	">
-                            <input id="pac-input" class="controls" type="text" placeholder="Entrez le lieu de l'événement"/>
+                            <input id="pac-input" class="controls" type="text" placeholder="Entrez le lieu de l'événement *"/>
                             <div id="map"></div>
                         </div>
                     </div>
                     <div class="col s12" style="display: none">
                         {{ form_widget(form.lieu) }}
                     </div>
+
                 </div>
+                * Champs obligatoires
             </div>
         </div>
         <div class="right">

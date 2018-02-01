@@ -21,17 +21,17 @@
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix">account_circle</i>
                                     {{ form_widget(form.nom) }}
-                                    <label for="nom">Nom</label>
+                                    <label for="nom">Nom *</label>
                                 </div>
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix">account_circle</i>
                                     {{ form_widget(form.prenom) }}
-                                    <label for="prenom">Prénom</label>
+                                    <label for="prenom">Prénom *</label>
                                 </div>
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix">date_range</i>
                                     {{ form_widget(form.dateNaissance, {'attr': {'class': 'datepicker', 'id': 'date_naissance'} }) }}
-                                    <label for="date_naissance">Date de naissance</label>
+                                    <label for="date_naissance">Date de naissance *</label>
                                 </div>
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix">wc</i>
@@ -43,27 +43,29 @@
                                     <i class="material-icons prefix">email</i>
                                     {{ form_widget(form.email) }}
                                     <span class="red-text">{{ form_errors(form.email) }}</span>
-                                    <label for="mail">Email</label>
+                                    <label for="mail">Email *</label>
                                 </div>
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix">lock_outline</i>
                                     {{ form_widget(form.plainPassword.first) }}
                                     <span class="red-text">{{ form_errors(form.plainPassword.first) }}</span>
-                                    <label for="mdp">Mot de passe</label>
+                                    <label for="mdp">Mot de passe *</label>
                                 </div>
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix">lock_outline</i>
                                     {{ form_widget(form.plainPassword.second) }}
                                     <span class="red-text">{{ form_errors(form.plainPassword.second) }}</span>
-                                    <label for="confirm_mdp">Confirmation</label>
+                                    <label for="confirm_mdp">Confirmation mot de passe *</label>
                                 </div>
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix">local_phone</i>
                                     {{ form_widget(form.telephone) }}
-                                    <label for="prenom">Téléphone</label>
+                                    <label for="prenom">Téléphone *</label>
                                 </div>
                             </div>
+                            * Champs obligatoires
                         </div>
+
                         <div class="col l6 offset-l6 s12">
                             <div class="row">
                                 <button class="btn waves-effect blue darken-2" type="submit" name="action">Valider

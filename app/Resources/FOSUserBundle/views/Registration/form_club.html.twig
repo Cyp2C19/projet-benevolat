@@ -20,7 +20,7 @@
                         <div class="input-field col s12">
                             <i class="material-icons prefix">info_outline</i>
                             {{ form_widget(form.intitule) }}
-                            <label>Intitulé de votre club</label>
+                            <label>Intitulé de votre club *</label>
                             <span class="red-text">{{ form_errors(form.intitule) }}</span>
                         </div>
                         <div class="input-field col s12"></div>
@@ -33,20 +33,21 @@
                             <i class="material-icons prefix">email</i>
                             {{ form_widget(form.email) }}
                             <span class="red-text">{{ form_errors(form.email) }}</span>
-                            <label for="email">Email</label>
+                            <label for="email">Email *</label>
                         </div>
                         <div class="input-field col s12">
                             <i class="material-icons prefix">lock_outline</i>
                             {{ form_widget(form.plainPassword.first) }}
                             <span class="red-text">{{ form_errors(form.plainPassword.first) }}</span>
-                            <label for="mdp">Mot de passe</label>
+                            <label for="mdp">Mot de passe *</label>
                         </div>
                         <div class="input-field col s12">
                             <i class="material-icons prefix">lock_outline</i>
                             {{ form_widget(form.plainPassword.second) }}
                             <span class="red-text">{{ form_errors(form.plainPassword.second) }}</span>
-                            <label for="confirm_mdp">Confirmation</label>
+                            <label for="confirm_mdp">Confirmation du mot de passe *</label>
                         </div>
+                        * Champs obligatoires
                     </div>
                     <div class="right-align">
                             <button class="btn waves-effect blue darken-2" type="submit" name="action">Valider
