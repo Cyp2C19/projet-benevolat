@@ -24,4 +24,8 @@ security:
             - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
             - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
             - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: ^/admin/, role: ROLE_ADMIN }
+            - { path: ^/espace-club, roles: ROLE_CLUB }
+            - { path: ^/creer-evenement, roles: ROLE_CLUB }
+            - { path: ^/modifier-evenement, roles: ROLE_CLUB }
+            - { path: ^/espace-benevole, roles: ROLE_BENEVOLE }
+            #- { path: ^/admin/, role: ROLE_ADMIN }

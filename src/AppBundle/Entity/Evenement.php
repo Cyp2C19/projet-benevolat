@@ -50,6 +50,13 @@ class Evenement
     private $tarifReduit;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="interieur", type="boolean", nullable=true)
+     */
+    private $interieur;
+
+    /**
      * @var \DateTime
      * @Assert\NotBlank(message="La date de début doit être saisie")
      * @ORM\Column(name="dateDebut", type="date", nullable=false)
@@ -108,7 +115,7 @@ class Evenement
     /**
      * @var \AppBundle\Entity\Lieu
      * @Assert\Valid()
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Lieu",cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Lieu")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="lieu", referencedColumnName="id", nullable=false)
      * })
@@ -193,6 +200,22 @@ class Evenement
     public function setTarifReduit($tarifReduit)
     {
         $this->tarifReduit = $tarifReduit;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isInterieur()
+    {
+        return $this->interieur;
+    }
+
+    /**
+     * @param bool $interieur
+     */
+    public function setInterieur($interieur)
+    {
+        $this->interieur = $interieur;
     }
 
     /**

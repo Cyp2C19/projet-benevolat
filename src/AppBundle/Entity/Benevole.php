@@ -10,6 +10,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use PUGX\MultiUserBundle\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Benevole
@@ -27,6 +28,16 @@ class Benevole extends Utilisateur
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * @Assert\Length(
+     *     min=8,
+     *     max=256,
+     *     minMessage="Le mot de passe doit être de 8 caractères minimum.",
+     *     groups={"Profile", "ResetPassword", "Registration", "ChangePassword"}
+     * )
+     */
+    protected $plainPassword;
 
     /**
      * @var string
@@ -141,5 +152,6 @@ class Benevole extends Utilisateur
     public function setDateNaissance($dateNaissance)
     {
         $this->dateNaissance = $dateNaissance;
+        $this->setRoles(array('ROLE_BENEVOLE'));
     }
 }

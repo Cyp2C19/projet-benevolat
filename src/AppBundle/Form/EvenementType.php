@@ -2,7 +2,6 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Entity\Sport;
 use AppBundle\Form\Type\DateAndTimeType;
 use AppBundle\Form\Type\TimerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -12,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Valid;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class EvenementType extends AbstractType
 {
@@ -31,6 +31,16 @@ class EvenementType extends AbstractType
             ->add('tarifReduit', NumberType::class, array(
                 'invalid_message' => 'Veuillez entrer un nombre',
                 'required' => false
+            ))
+            ->add('interieur', ChoiceType::class, array(
+                'choices'  => array(
+                    'Intérieur' => true,
+                    'Extérieur' => false,
+                ),
+                'expanded' => true,
+                'multiple' => false,
+                'required' => false,
+                'placeholder' => false
             ))
             ->add('dateDebut', DateAndTimeType::class)
             ->add('dateFin', DateAndTimeType::class)

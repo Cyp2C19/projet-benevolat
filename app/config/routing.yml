@@ -7,12 +7,12 @@ detail_evenement:
     defaults: { _controller: AppBundle:Accueil:chargerEvenement }
 
 creation_evenement:
-    path:     /creation-evenement
-    defaults: { _controller: AppBundle:CreerEvenement:index}
+    path:     /creer-evenement
+    defaults: { _controller: AppBundle:Evenement:creer}
 
 modifier_evenement:
     path:     /modifier-evenement/{id}
-    defaults: { _controller: AppBundle:CreerEvenement:edit}
+    defaults: { _controller: AppBundle:Evenement:edit}
 
 espace_club:
     path:     /espace-club
@@ -56,3 +56,12 @@ fos_user_resetting:
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profil
+
+admin:
+    resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
+    prefix: /admin
+
+_sonata_admin:
+    resource: .
+    type: sonata_admin
+    prefix: /admin

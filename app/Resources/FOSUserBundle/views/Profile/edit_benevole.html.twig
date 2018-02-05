@@ -1,20 +1,51 @@
 {% extends 'layout.html.twig' %}
 
 {% block title %}
-    Modification Bénévole
+    Modification informations Bénévole
 {% endblock title %}
 
 {% block content %}
 
-{% trans_default_domain 'FOSUserBundle' %}
+    {% trans_default_domain 'FOSUserBundle' %}
 
-{% block fos_user_content %}
-{{ form_start(form, { 'action': path('benevole_edit') }) }}
-    {{ form_widget(form) }}
-    <div>
-        <input type="submit" value="{{ 'Valider'|trans }}" />
-    </div>
-{{ form_end(form) }}
-{% endblock fos_user_content %}
+    {% block fos_user_content %}
+        <div class="container">
+            <br><br>
+            <div class="card-panel hoverable grey lighten-5 z-depth-1">
+                {{ form_start(form, { 'action': path('benevole_edit') }) }}
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">email</i>
+                    {{ form_widget(form.email) }}
+                    <label>Adresse email</label>
+                </div>
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">account_circle</i>
+                    {{ form_widget(form.nom) }}
+                    <label>Nom</label>
+                </div>
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">account_circle</i>
+                    {{ form_widget(form.prenom) }}
+                    <label>Prénom</label>
+                </div>
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">local_phone</i>
+                    {{ form_widget(form.telephone) }}
+                    <label>Téléphone</label>
+                </div>
+                <br>
+                <a href="{{ path('fos_user_change_password') }}">Modifier mon mot de passe</a><br><br>
+                <div class="right">
+                    <button class="btn waves-effect blue darken-2" id="sub" type="submit" name="action">Mettre à jour
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+                <br><br>
+                {{ form_end(form) }}
+            </div>
+            <br><br>
+        </div>
+
+    {% endblock fos_user_content %}
 
 {% endblock content %}

@@ -1,6 +1,6 @@
 {% extends "layout.html.twig" %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}Bienvenue sur Sport En Vienne !{% endblock %}
 
 {% block content %}
 
@@ -8,7 +8,7 @@
         <div class="section no-pad-bot"><br><br><br>
             <div class="row">
             <div class="card col l5 offset-l1 s12 z-depth-4">
-                <h4 class="header center blue-text text-accent-3">Bouge Ta Vienne</h4>
+                <h4 class="header center blue-text text-accent-3">Sport En Vienne</h4>
                 <div class="center">
                     <p align="justify" style="font-size: 18px;" class="light">
                         Ce site a pour vocation de présenter les différents événements sportifs qui ont lieu sur
@@ -31,48 +31,59 @@
         <div class="section" id="evenements">
             <div class="row">
                 <div class="card col s12 grey lighten-5">
-                    <div class="col s12">
-                        <div class="input-field col l4 s12">
-                            <i class="material-icons prefix">directions_run</i>
-                            <input id="icon_prefix" type="text" class="validate">
-                            <label for="icon_prefix">Choix du sport</label>
+                    <div class="card-content">
+                        {% set action = path('accueil') ~ '#evenements' %}
+                        {{ form_start(form, {'method': 'POST', 'action': action }) }}
+                        {{ form_widget(form._token) }}
+                        <div class="col s12">
+                            <div class="input-field col l4 s12">
+                                <i class="material-icons prefix">directions_run</i>
+                                {{ form_widget(form.sport) }}
+                            </div>
+                            <div class="input-field col l4 s12">
+                                <i class="material-icons prefix">add_location</i>
+                                {{ form_widget(form.lieu) }}
+                            </div>
+                            <div class="input-field col l3 s12">
+                                <i class="material-icons prefix">event</i>
+                                {{ form_widget(form.dateDebut, {'attr': {'class': 'datepicker'} }) }}
+                                <label for="icon_prefix">Date</label>
+                            </div><br>
+                            <div class="input-field col l1 s12">
+                                <button class="btn-floating halfway-fab waves-effect waves-light blue accent-3" type="submit">
+                                    <i class="material-icons">search</i>
+                                </button>
+                            </div>
                         </div>
-                        <div class="input-field col l3 s12">
-                            <i class="material-icons prefix">add_location</i>
-                            <input id="icon_prefix" type="text" class="validate">
-                            <label for="icon_prefix">Lieu</label>
+                        <div class="col s12" id="criteres" style="display: none;">
+                            <div class="input-field col l4 s12">
+                                {{ form_widget(form.niveau) }}
+                            </div>
+                            <div class="input-field col l4 s12">
+                                {{ form_widget(form.categorieAge) }}
+                            </div>
+                            <div class="col l3 s12">
+                                <br>
+                                {{ form_widget(form.interieur) }}
+                            </div>
+                            <div class="input-field col s12"></div>
                         </div>
-                        <div class="input-field col l3 s12">
-                            <i class="material-icons prefix">event</i>
-                            <input id="icon_prefix" type="text" class="validate">
-                            <label for="icon_prefix">Date</label>
-                        </div><br>
-                        <div class="input-field col l1 s6">
-                            <a class="btn-floating halfway-fab waves-effect waves-light blue accent-3"
-                               onclick="afficherCriteresRecherche()">
-                                <i class="material-icons">add</i>
-                            </a>
-                        </div>
-                        <div class="input-field col l1 s6">
-                            <a class="btn-floating halfway-fab waves-effect waves-light blue accent-3" >
-                                <i class="material-icons">search</i>
-                            </a>
-                        </div>
+                        {{ form_end(form) }}
                     </div>
-                    <div class="col s12" id="criteres" style="display: none">
-                        Test
-                    </div>
+                    <a class="btn-floating halfway-fab waves-effect waves-light blue accent-3" id="afficherPlus">
+                        <i class="material-icons">add</i>
+                    </a>
                 </div>
                 <div class="col s12">
                     {% for evt in events %}
                         <div class="card small hoverable col l4 s12">
-                            <img src='{{ asset("img/sports/"~ evt.sport.intitule ~".png")}}' class="circle" width="10%"/>
+                            <img src='{{ asset("img/sports/"~ evt.sport.logo)}}' class="circle" width="10%"/>
                             <span style="font-size: 14px;"><b>{{ evt.titre }}</b></span><br>
                             <span style="font-size: 12px;">
                                 Le {{ evt.dateDebut|date('d/m/Y') }} à {{ evt.horaire|date('H:i') }} H<br>
                                 {{ evt.lieu.adresse }} - {{ evt.lieu.ville }}
                             </span>
-                            <a href="#detail_evenement{{ evt.id }}" class="modal-trigger secondary-content btn-floating halfway-fab waves-effect waves-light blue accent-3"><i class="material-icons">add</i></a>
+                            <a href="#detail_evenement{{ evt.id }}" class="modal-trigger secondary-content btn-floating halfway-fab waves-effect waves-light blue accent-3"><i class="material-icons">zoom_in</i></a>
                             <div class="card-action">
                                 {% if evt.contientDemandesBenevolat() %}
                                     <a href="#inscription_benevolat" class=" btn-small blue accent-3 modal-trigger">Besoin de bénévoles !</a>
@@ -84,7 +95,7 @@
                             <div class="modal-content">
                                 <div class="row">
                                     <div class="col s1">
-                                        <img src='{{ asset("img/sports/"~ evt.sport.intitule ~".png")}}' width="135%"
+                                        <img src='{{ asset("img/sports/"~ evt.sport.logo)}}' width="135%"
                                              class="circle">
                                     </div>
                                     <div class="col s11">
@@ -104,6 +115,11 @@
                                                 {% endif %}
                                                 {% if evt.tarifReduit != null %}
                                                     <b>Tarif réduit :</b> {{ evt.tarifReduit }}
+                                                {% endif %}<br>
+                                                {% if evt.interieur %}
+                                                    Événement se déroulant en intérieur.
+                                                {% elseif evt.interieur is sameas(false) %}
+                                                    Événement se déroulant en extérieur.
                                                 {% endif %}
                                             </p>
                                         </div>
@@ -248,9 +264,9 @@
     <script type="text/javascript" src="{{ asset('js/jquery.materialize-autocomplete.js') }}"></script>
 
     <script type="text/javascript">
-        function afficherCriteresRecherche() {
-            document.getElementById('criteres').style.display = "block";
-        }
+        $('#afficherPlus').click(function(){
+            $('#criteres').toggle();
+        });
         $(".dropdown-button").dropdown();
         $("select").material_select();
         $('.scrollspy').scrollSpy();
@@ -269,141 +285,13 @@
             }
         );
 
-        $(function () {
-            var multiple = $('#multipleInput').materialize_autocomplete({
-                multiple: {
-                    enable: true
-                },
-                appender: {
-                    el: '.ac-users'
-                },
-                dropdown: {
-                    el: '#multipleDropdown'
-                }
-            });
-            var resultCache = {
-                'F': [
-                    {
-                        id: 'Football',
-                        text: 'Football',
-                    }
-                ],
-                'FO': [
-                    {
-                        id: 'Football',
-                        text: 'Football',
-                    }
-                ],
-                'FOO': [
-                    {
-                        id: 'Football',
-                        text: 'Football',
-                    }
-                ],
-                'FOOT': [
-                    {
-                        id: 'Football',
-                        text: 'Football',
-                    }
-                ],
-                'R': [
-                    {
-                        id: 'Rugby',
-                        text: 'Rugby',
-                    }
-                ],
-                'RU': [
-                    {
-                        id: 'Rugby',
-                        text: 'Rugby',
-                    }
-                ],
-                'RUG': [
-                    {
-                        id: 'Rugby',
-                        text: 'Rugby',
-                    }
-                ],
-                'RUGB': [
-                    {
-                        id: 'Rugby',
-                        text: 'Rugby',
-                    }
-                ],
-                'K': [
-                    {
-                        id: 'Karaté',
-                        text: 'Karaté',
-                    }
-                ],
-                'KA': [
-                    {
-                        id: 'Karaté',
-                        text: 'Karaté',
-                    }
-                ],
-                'KAR': [
-                    {
-                        id: 'Karaté',
-                        text: 'Karaté',
-                    }
-                ],
-                'KARA': [
-                    {
-                        id: 'Karaté',
-                        text: 'Karaté',
-                    }
-                ],
-                'V': [
-                    {
-                        id: 'Volley-Ball',
-                        text: 'Volley-Ball',
-                    }
-                ],
-                'VO': [
-                    {
-                        id: 'Volley-Ball',
-                        text: 'Volley-Ball',
-                    }
-                ],
-                'VOL': [
-                    {
-                        id: 'Volley-Ball',
-                        text: 'Volley-Ball',
-                    }
-                ],
-                'VOLL': [
-                    {
-                        id: 'Volley-Ball',
-                        text: 'Volley-Ball',
-                    }
-                ],
-                'B': [
-                    {
-                        id: 'Basket-Ball',
-                        text: 'Basket-Ball',
-                    }
-                ],
-                'BA': [
-                    {
-                        id: 'Basket-Ball',
-                        text: 'Basket-Ball',
-                    }
-                ],
-                'BAS': [
-                    {
-                        id: 'Basket-Ball',
-                        text: 'Basket-Ball',
-                    }
-                ],
-                'BASK': [
-                    {
-                        id: 'Basket-Ball',
-                        text: 'Basket-Ball',
-                    }
-                ]
-            };
-            multiple.resultCache = resultCache;
+        $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15, // Creates a dropdown of 15 years to control year,
+            today: 'Aujourd\'hui',
+            clear: 'Réinitialiser',
+            close: 'Ok',
+            closeOnSelect: false // Close upon selecting a date,
         });
 
     </script>

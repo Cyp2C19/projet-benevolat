@@ -17,6 +17,7 @@ class ProfileBenevoleFormType extends AbstractType
     {
         $builder
             ->remove('username')
+            ->remove('current_password')
             ->add('nom', TextType::class)
             ->add('prenom', TextType::class)
             ->add('telephone', TextType::class);

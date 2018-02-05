@@ -208,7 +208,7 @@ textarea.materialize-textarea:focus:not([readonly]) + label {
 }
 
 .card.small {
-  height: 125px;
+  height: 110px;
   padding: 8px 20px;
   padding-left: 46px;
 }
@@ -285,4 +285,11 @@ textarea.materialize-textarea:focus:not([readonly]) + label {
   position:fixed;
   bottom: 40%;
   right: 10px;
+}
+
+[type="radio"]:checked + label::after, [type="radio"].with-gap:checked + label::after {
+  background-color: #2979FF;
+}
+[type="radio"]:checked + label::after, [type="radio"].with-gap:checked + label::before, [type="radio"].with-gap:checked + label::after {
+  border: 2px solid #2979FF;
 }

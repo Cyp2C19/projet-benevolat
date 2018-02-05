@@ -54,12 +54,8 @@
                         <i class="material-icons prefix">access_time</i>
                         {{ form_widget(form.horaire, {'attr': {'class': 'timepicker', 'placeholder': 'Horaire *'} }) }}
                     </div>
-                    <div class="input-field col s12"></div>
-                    <div class="switch col l8 s12">
-                        <label><i class="material-icons prefix">home</i>Intérieur
-                            <input type="checkbox">
-                            <span class="lever"></span>Plein air<i class="material-icons">wb_sunny</i>
-                        </label>
+                    <div class="switch col l5 s5">
+                            {{ form_widget(form.interieur) }}
                     </div>
                     <div class="input-field col s12"></div>
                 </div>

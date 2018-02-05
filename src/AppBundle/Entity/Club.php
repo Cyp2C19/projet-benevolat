@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use PUGX\MultiUserBundle\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Club
@@ -22,6 +23,16 @@ class Club extends Utilisateur
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * @Assert\Length(
+     *     min=8,
+     *     max=256,
+     *     minMessage="Le mot de passe doit être de 8 caractères minimum.",
+     *     groups={"Profile", "ResetPassword", "Registration", "ChangePassword"}
+     * )
+     */
+    protected $plainPassword;
 
     /**
      * @var \AppBundle\Entity\NomClub
@@ -116,6 +127,6 @@ class Club extends Utilisateur
 
     public function __construct() {
         $this->evenements = new ArrayCollection();
+        $this->setRoles(array('ROLE_CLUB'));
     }
-
 }

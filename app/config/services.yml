@@ -35,6 +35,54 @@ services:
             tags:
                 - { name: form.type }
 
+    admin.sport:
+            class: AppBundle\Admin\SportAdmin
+            arguments: [~, AppBundle\Entity\Sport, ~]
+            tags:
+                - { name: sonata.admin, manager_type: orm, label: Sports }
+            public: true
+
+    admin.niveau:
+            class: AppBundle\Admin\NiveauAdmin
+            arguments: [~, AppBundle\Entity\Niveau, ~]
+            tags:
+                - { name: sonata.admin, manager_type: orm, label: Niveaux }
+            public: true
+
+    admin.categorieAge:
+                class: AppBundle\Admin\CategorieAgeAdmin
+                arguments: [~, AppBundle\Entity\CategorieAge, ~]
+                tags:
+                    - { name: sonata.admin, manager_type: orm, label: Catégories d'âge }
+                public: true
+
+    admin.missionBenevolat:
+                    class: AppBundle\Admin\MissionBenevolatAdmin
+                    arguments: [~, AppBundle\Entity\MissionBenevolat, ~]
+                    tags:
+                        - { name: sonata.admin, manager_type: orm, label: Missions de bénévolat }
+                    public: true
+
+    admin.evenement:
+                    class: AppBundle\Admin\EvenementAdmin
+                    arguments: [~, AppBundle\Entity\Evenement, ~]
+                    tags:
+                        - { name: sonata.admin, manager_type: orm, label: Événements }
+                    public: true
+
+    admin.club:
+                    class: AppBundle\Admin\ClubAdmin
+                    arguments: [~, AppBundle\Entity\Club, ~]
+                    tags:
+                        - { name: sonata.admin, manager_type: orm, label: Clubs }
+                    public: true
+
+    admin.benevole:
+                    class: AppBundle\Admin\BenevoleAdmin
+                    arguments: [~, AppBundle\Entity\Benevole, ~]
+                    tags:
+                        - { name: sonata.admin, manager_type: orm, label: Bénévoles }
+                    public: true
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:
     #     arguments:

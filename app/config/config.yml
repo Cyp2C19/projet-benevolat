@@ -82,7 +82,7 @@ fos_user:
         user_manager: pugx_user_manager
     from_email:
         address: "mailer.symfony.test@gmail.com"
-        sender_name: "Bénévolat"
+        sender_name: "Sport En Vienne"
 
 pugx_multi_user:
   users:
@@ -115,3 +115,44 @@ pugx_multi_user:
                  name: fos_user_profile_form
                  validation_groups:  [Profile, Default]
                template: FOSUserBundle:Profile:edit_benevole.html.twig
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        # enable the SonataAdminBundle block
+        sonata.admin.block.admin_list:
+            contexts:   [admin]
+        sonata.admin.block.search_result:
+            contexts:   [admin]
+
+sonata_admin:
+    title:      Sport En Vienne
+    title_logo: img/logo.png
+    dashboard:
+        blocks:
+            -
+                position: left
+                type: sonata.admin.block.admin_list
+                settings:
+                    groups: [contenu]
+            -
+                position: right
+                type: sonata.admin.block.admin_list
+                settings:
+                    groups: [utilisateurs]
+        groups:
+            contenu:
+              label: Contenu
+              items:
+                  - admin.evenement
+                  - admin.sport
+                  - admin.niveau
+                  - admin.categorieAge
+                  - admin.missionBenevolat
+
+            utilisateurs:
+              label: Utilisateurs
+              icon: '<i class="fa fa-user"></i>'
+              items:
+                   - admin.club
+                   - admin.benevole
