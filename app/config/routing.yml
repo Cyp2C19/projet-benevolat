@@ -2,6 +2,10 @@ accueil:
     path:     /
     defaults: { _controller: AppBundle:Accueil:index}
 
+resetCriteres:
+    path:     /reset-criteres
+    defaults: { _controller: AppBundle:Accueil:resetCriteres}
+
 detail_evenement:
     path:     /evenement
     defaults: { _controller: AppBundle:Accueil:chargerEvenement }

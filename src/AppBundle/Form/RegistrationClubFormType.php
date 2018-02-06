@@ -10,6 +10,7 @@ namespace AppBundle\Form;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
+use Doctrine\ORM\EntityRepository;
 
 class RegistrationClubFormType extends AbstractType
 {
@@ -20,6 +21,10 @@ class RegistrationClubFormType extends AbstractType
                 'class'    => 'AppBundle\Entity\NomClub',
                 'choice_label' => 'nom',
                 'placeholder' => 'Choix d\'un club',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.nom', 'ASC');
+                },
                 'multiple' => false
             ))
             ->add('sportParDefaut', EntityType::class, array(
@@ -27,6 +32,10 @@ class RegistrationClubFormType extends AbstractType
                 'choice_label' => 'intitule',
                 'placeholder' => 'Choix d\'un sport',
                 'required' => false,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('s')
+                        ->orderBy('s.intitule', 'ASC');
+                },
                 'multiple' => false
             ))
             ->remove('username');

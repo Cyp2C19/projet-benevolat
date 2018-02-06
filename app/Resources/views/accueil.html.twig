@@ -30,11 +30,11 @@
     <div class="container">
         <div class="section" id="evenements">
             <div class="row">
+                {% set action = path('accueil') ~ '#evenements' %}
+                {{ form_start(form, {'method': 'POST', 'action': action }) }}
+                {{ form_widget(form._token) }}
                 <div class="card col s12 grey lighten-5">
                     <div class="card-content">
-                        {% set action = path('accueil') ~ '#evenements' %}
-                        {{ form_start(form, {'method': 'POST', 'action': action }) }}
-                        {{ form_widget(form._token) }}
                         <div class="col s12">
                             <div class="input-field col l4 s12">
                                 <i class="material-icons prefix">directions_run</i>
@@ -44,16 +44,12 @@
                                 <i class="material-icons prefix">add_location</i>
                                 {{ form_widget(form.lieu) }}
                             </div>
-                            <div class="input-field col l3 s12">
+                            <div class="input-field col l4 s12">
                                 <i class="material-icons prefix">event</i>
                                 {{ form_widget(form.dateDebut, {'attr': {'class': 'datepicker'} }) }}
                                 <label for="icon_prefix">Date</label>
-                            </div><br>
-                            <div class="input-field col l1 s12">
-                                <button class="btn-floating halfway-fab waves-effect waves-light blue accent-3" type="submit">
-                                    <i class="material-icons">search</i>
-                                </button>
                             </div>
+                            <div class="input-field col s12"></div>
                         </div>
                         <div class="col s12" id="criteres" style="display: none;">
                             <div class="input-field col l4 s12">
@@ -68,92 +64,105 @@
                             </div>
                             <div class="input-field col s12"></div>
                         </div>
-                        {{ form_end(form) }}
                     </div>
                     <a class="btn-floating halfway-fab waves-effect waves-light blue accent-3" id="afficherPlus">
                         <i class="material-icons">add</i>
                     </a>
+                    <a href="{{ path('resetCriteres') ~ "#evenements"}}"
+                       class="btn-floating halfway-fab waves-effect waves-light grey" id="clearAccueil">
+                        <i class="material-icons right">clear</i>
+                    </a>
+                    <button class="btn-floating halfway-fab waves-effect waves-light blue accent-3" id="rechercheAccueil" type="submit">
+                        <i class="material-icons">search</i>
+                    </button>
                 </div>
+                {{ form_end(form) }}
                 <div class="col s12">
-                    {% for evt in events %}
-                        <div class="card small hoverable col l4 s12">
-                            <img src='{{ asset("img/sports/"~ evt.sport.logo)}}' class="circle" width="10%"/>
-                            <span style="font-size: 14px;"><b>{{ evt.titre }}</b></span><br>
-                            <span style="font-size: 12px;">
-                                Le {{ evt.dateDebut|date('d/m/Y') }} à {{ evt.horaire|date('H:i') }} H<br>
-                                {{ evt.lieu.adresse }} - {{ evt.lieu.ville }}
-                            </span>
-                            <a href="#detail_evenement{{ evt.id }}" class="modal-trigger secondary-content btn-floating halfway-fab waves-effect waves-light blue accent-3"><i class="material-icons">zoom_in</i></a>
-                            <div class="card-action">
-                                {% if evt.contientDemandesBenevolat() %}
-                                    <a href="#inscription_benevolat" class=" btn-small blue accent-3 modal-trigger">Besoin de bénévoles !</a>
-                                {% endif %}
+                    {% if events|length > 0 %}
+                        {% for evt in events %}
+                            <div class="card small hoverable col l4 s12">
+                                <img src='{{ asset("img/sports/"~ evt.sport.logo)}}' class="circle" width="10%"/>
+                                <span style="font-size: 14px;"><b>{{ evt.titre }}</b></span><br>
+                                <span style="font-size: 12px;">
+                                    Le {{ evt.dateDebut|date('d/m/Y') }} à {{ evt.horaire|date('H:i') }} H<br>
+                                    {{ evt.lieu.adresse }} - {{ evt.lieu.ville }}
+                                </span>
+                                <a href="#detail_evenement{{ evt.id }}" class="modal-trigger secondary-content btn-floating halfway-fab waves-effect waves-light blue accent-3"><i class="material-icons">zoom_in</i></a>
+                                <div class="card-action">
+                                    {% if evt.contientDemandesBenevolat() %}
+                                        <a href="#inscription_benevolat" class=" btn-small blue accent-3 modal-trigger">Besoin de bénévoles !</a>
+                                    {% endif %}
+                                </div>
                             </div>
-                        </div>
 
-                        <div id="detail_evenement{{ evt.id }}" class="modal modal-fixed-footer">
-                            <div class="modal-content">
-                                <div class="row">
-                                    <div class="col s1">
-                                        <img src='{{ asset("img/sports/"~ evt.sport.logo)}}' width="135%"
-                                             class="circle">
-                                    </div>
-                                    <div class="col s11">
-                                        <h5>{{ evt.titre }}</h5>
-                                        Événement crée par : {{ evt.club.intitule.nom }}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="card-panel grey lighten-5 z-depth-2 col s12">
-                                        <div class="col l6 s12">
-                                            <p>
-                                                <b>Sport :</b> {{ evt.sport.intitule }}<br>
-                                                <b>Niveau :</b> {{ evt.niveau.type }}<br>
-                                                <b>Catégorie :</b> {{ evt.categorieAge.type }}<br>
-                                                {% if evt.tarifPlein != null %}
-                                                    <b>Tarif plein :</b> {{ evt.tarifPlein }}<br>
-                                                {% endif %}
-                                                {% if evt.tarifReduit != null %}
-                                                    <b>Tarif réduit :</b> {{ evt.tarifReduit }}
-                                                {% endif %}<br>
-                                                {% if evt.interieur %}
-                                                    Événement se déroulant en intérieur.
-                                                {% elseif evt.interieur is sameas(false) %}
-                                                    Événement se déroulant en extérieur.
-                                                {% endif %}
-                                            </p>
+                            <div id="detail_evenement{{ evt.id }}" class="modal modal-fixed-footer">
+                                <div class="modal-content">
+                                    <div class="row">
+                                        <div class="col s1">
+                                            <img src='{{ asset("img/sports/"~ evt.sport.logo)}}' width="135%"
+                                                 class="circle">
                                         </div>
-                                        <div class="col l6 s12">
-                                            <p>
-                                                <i class="material-icons">event</i>
-                                                {% if evt.dateFin != null %}Du {{ evt.dateDebut|date('d/m/Y') }}
-                                                    au {{ evt.dateFin|date('d/m/Y') }}
-                                                {% else %}
-                                                 {{ evt.dateDebut|date('d/m/Y') }}
-                                                {% endif %}
-                                                <br>
-                                                <i class="material-icons">access_time</i> {{ evt.horaire|date('H:i') }} H<br>
-                                                <i class="material-icons">location_on</i> {{ evt.lieu.adresse }} -
-                                                 {{ evt.lieu.ville }} - {{ evt.lieu.codePostal }}<br>
-                                            </p>
+                                        <div class="col s11">
+                                            <h5>{{ evt.titre }}</h5>
+                                            Événement crée par : {{ evt.club.intitule.nom }}
                                         </div>
                                     </div>
-                                </div>
-                                {% if evt.description != null %}
-                                <div class="row">
-                                    <div class="card-panel grey lighten-5 z-depth-2">
-                                        <h5>Description</h5>
-                                        {{ evt.description }}
+                                    <div class="row">
+                                        <div class="card-panel grey lighten-5 z-depth-2 col s12">
+                                            <div class="col l6 s12">
+                                                <p>
+                                                    <b>Sport :</b> {{ evt.sport.intitule }}<br>
+                                                    <b>Niveau :</b> {{ evt.niveau.type }}<br>
+                                                    <b>Catégorie :</b> {{ evt.categorieAge.type }}<br>
+                                                    {% if evt.tarifPlein != null %}
+                                                        <b>Tarif plein :</b> {{ evt.tarifPlein }}<br>
+                                                    {% endif %}
+                                                    {% if evt.tarifReduit != null %}
+                                                        <b>Tarif réduit :</b> {{ evt.tarifReduit }}
+                                                    {% endif %}<br>
+                                                    {% if evt.interieur %}
+                                                        Événement se déroulant en intérieur.
+                                                    {% elseif evt.interieur is sameas(false) %}
+                                                        Événement se déroulant en extérieur.
+                                                    {% endif %}
+                                                </p>
+                                            </div>
+                                            <div class="col l6 s12">
+                                                <p>
+                                                    <i class="material-icons">event</i>
+                                                    {% if evt.dateFin != null %}Du {{ evt.dateDebut|date('d/m/Y') }}
+                                                        au {{ evt.dateFin|date('d/m/Y') }}
+                                                    {% else %}
+                                                     {{ evt.dateDebut|date('d/m/Y') }}
+                                                    {% endif %}
+                                                    <br>
+                                                    <i class="material-icons">access_time</i> {{ evt.horaire|date('H:i') }} H<br>
+                                                    <i class="material-icons">location_on</i> {{ evt.lieu.adresse }} -
+                                                     {{ evt.lieu.ville }} - {{ evt.lieu.codePostal }}<br>
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
+                                    {% if evt.description != null %}
+                                    <div class="row">
+                                        <div class="card-panel grey lighten-5 z-depth-2">
+                                            <h5>Description</h5>
+                                            {{ evt.description }}
+                                        </div>
+                                    </div>
+                                    {% endif %}
                                 </div>
-                                {% endif %}
+                                <div class="modal-footer">
+                                    <a class="waves-effect waves-light btn social facebook">
+                                        <i class="fa fa-facebook"></i> Partager sur Facebook</a>
+                                </div>
                             </div>
-                            <div class="modal-footer">
-                                <a class="waves-effect waves-light btn social facebook">
-                                    <i class="fa fa-facebook"></i> Partager sur Facebook</a>
-                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="card-panel grey lighten-5">
+                            <h5 class="header text-accent-3">Aucun événement n'a été trouvé.</h5>
                         </div>
-                    {% endfor %}
+                    {% endif %}
                 </div>
                 {% if maxPages > 1 %}
                 <div class="col s12 card-panel z-depth-2">

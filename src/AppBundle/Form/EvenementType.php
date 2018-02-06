@@ -12,6 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Valid;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Doctrine\ORM\EntityRepository;
 
 class EvenementType extends AbstractType
 {
@@ -68,6 +69,10 @@ class EvenementType extends AbstractType
                 'choice_label' => 'intitule',
                 'placeholder' => 'Choix d\'un sport',
                 'data' => $sport,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('s')
+                        ->orderBy('s.intitule', 'ASC');
+                },
                 'multiple' => false
             ))
             ->add('demandesBenevolat', EntityType::class, array(
@@ -98,6 +103,4 @@ class EvenementType extends AbstractType
     {
         return 'appbundle_evenement';
     }
-
-
 }

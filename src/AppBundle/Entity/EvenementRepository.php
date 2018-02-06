@@ -14,41 +14,48 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EvenementRepository extends EntityRepository
 {
-    public function getAllEvenements($pageCourante, $limit, $form)
+    public function getAllEvenements($pageCourante, $limit, $criteres)
     {
-        if(!is_null($form['dateDebut']->getData()))
+        if(isset($criteres['date']) && !is_null($criteres['date']))
         {
-            $date = $form['dateDebut']->getData();
+            $date = $criteres['date'];
         }
         else{
             $date = date('Y-m-d H:i:s');
         }
 
         $qb = $this->createQueryBuilder('e')
+            ->select('e', 'l')
+            ->leftJoin('e.lieu', 'l')
             ->where('e.dateDebut >= :date')
             ->orWhere(':date between e.dateDebut and e.dateFin')
             ->orderBy('DATE_DIFF(e.dateDebut, :date)')
             ->setParameter('date', $date);
 
-        if(!is_null($form['sport']->getData()))
+        if(isset($criteres['sport']) && !is_null($criteres['sport']))
         {
             $qb->andWhere('e.sport = :sport')
-                ->setParameter('sport', $form['sport']->getData());
+                ->setParameter('sport', $criteres['sport']);
         }
-        if(!is_null($form['niveau']->getData()))
+        if(isset($criteres['niveau']) && !is_null($criteres['niveau']))
         {
             $qb->andWhere('e.niveau = :niveau')
-                ->setParameter('niveau', $form['niveau']->getData());
+                ->setParameter('niveau', $criteres['niveau']);
         }
-        if(!is_null($form['categorieAge']->getData()))
+        if(isset($criteres['categorie']) && !is_null($criteres['categorie']))
         {
             $qb->andWhere('e.categorieAge = :categorieAge')
-                ->setParameter('categorieAge', $form['categorieAge']->getData());
+                ->setParameter('categorieAge', $criteres['categorie']);
         }
-        if(!is_null($form['interieur']->getData()))
+        if(isset($criteres['interieur']) && !is_null($criteres['interieur']))
         {
             $qb->andWhere('e.interieur = :interieur')
-                ->setParameter('interieur', $form['interieur']->getData());
+                ->setParameter('interieur', $criteres['interieur']);
+        }
+        if(isset($criteres['lieu']) && !is_null($criteres['lieu']))
+        {
+            $qb->andWhere('l.ville like :ville')
+                ->setParameter('ville', $criteres['lieu']->getVille());
         }
         $query = $qb->getQuery();
 
@@ -61,8 +68,8 @@ class EvenementRepository extends EntityRepository
     {
         $paginator = new Paginator($dql);
         $paginator->getQuery()
-            ->setFirstResult($limit * ($page - 1)) // Offset
-            ->setMaxResults($limit); // Limit
+            ->setFirstResult($limit * ($page - 1)) // Décalage
+            ->setMaxResults($limit); // Limite
         return $paginator;
     }
 

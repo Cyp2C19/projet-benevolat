@@ -10,6 +10,7 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Doctrine\ORM\EntityRepository;
 
 class ProfileClubFormType extends AbstractType
 {
@@ -20,7 +21,12 @@ class ProfileClubFormType extends AbstractType
                 'class'    => 'AppBundle\Entity\Sport',
                 'choice_label' => 'intitule',
                 'placeholder' => 'Choix d\'un sport',
-                'multiple' => false
+                'multiple' => false,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('s')
+                        ->orderBy('s.intitule', 'ASC');
+                },
+                'required' => false
             ))
             ->remove('username')
             ->remove('current_password');
