@@ -14,19 +14,19 @@
         {% set attr = attr|merge({'data-name-prefix': full_name}) %}
         <br>
         <div class="right">
-            <button class="btn waves-effect blue darken-2" id="boutonFixe" type="submit" name="action">Valider
+            <button class="btn waves-effect blue accent-3" id="boutonFixe" type="submit" name="action">Valider
                 <i class="material-icons right">send</i>
             </button>
         </div>
         <table {{ block('widget_attributes') }} >
             <thead>
             <th>Titre</th>
-            <th>Date de début</th>
-            <th>Date de fin</th>
+            <th>Description</th>
+            <th>Début</th>
+            <th>Fin</th>
             <th>Horaire</th>
             <th></th>
-            <th></th>
-            <th></th>
+
             </thead>
             <tbody>
 
@@ -45,25 +45,27 @@
     <tr {{ block('widget_attributes') }}>
         <td>{{ form_widget(form.titre) }}
             <span class="red-text">{{ form_errors(form.titre) }}</span></td>
-        <td>{{ form_widget(form.dateDebut, {'attr': {'class': 'datepicker'} }) }}
+        <td>{{ form_widget(form.description) }}</td>
+        <td width="100px">{{ form_widget(form.dateDebut, {'attr': {'class': 'datepicker'} }) }}
             <span class="red-text">{{ form_errors(form.dateDebut) }}</span></td>
-        <td>{{ form_widget(form.dateFin, {'attr': {'class': 'datepicker'} }) }}</td>
-        <td>{{ form_widget(form.horaire, {'attr': {'class': 'timepicker'} }) }}</td>
+        <td width="100px">{{ form_widget(form.dateFin, {'attr': {'class': 'datepicker'} }) }}</td>
+        <td width="60px">{{ form_widget(form.horaire, {'attr': {'class': 'timepicker'} }) }}</td>
         <td>
             {{ form_widget(form.niveau) }}
             {{ form_widget(form.categorieAge) }}
-            {{ form_widget(form.lieu) }}
+            {{ form_widget(form.adresse) }}
+            {{ form_widget(form.ville) }}
+            {{ form_widget(form.codePostal) }}
             {{ form_widget(form.club) }}
             {{ form_widget(form.sport) }}
+            {{ form_widget(form.interieur) }}
+            {{ form_widget(form.tarifPlein) }}
+            {{ form_widget(form.tarifReduit) }}
         </td>
         <td class="center-align">
-            <a href="{{ path('modifier_evenement',{"id": form.id.vars.value})}}" class="btn waves-effect blue darken-2 btn-edit" title="Modifier"><i class="material-icons">edit</i></a>
-        </td>
-        <td class="center-align">
-            <a href="#" class="btn waves-effect blue darken-2 TableauEvenementsType_evenements-collection-duplicate TableauEvenementsType_evenements-collection-action btn-dupliquer" title="Dupliquer"><i class="material-icons">content_copy</i></a>
-        </td>
-        <td class="center-align">
-            <a href="#" id="btn-tab" class="btn waves-effect blue darken-2 TableauEvenementsType_evenements-collection-remove TableauEvenementsType_evenements-collection-action btn-supprimer" title="Supprimer"><i class="material-icons">clear</i></a>
+            <a href="{{ path('modifier_evenement',{"id": form.id.vars.value | urlencrypt})}}" class="btn waves-effect blue accent-3 btn-edit" title="Modifier"><i class="material-icons">edit</i></a>
+            <a href="#" class="btn waves-effect blue accent-3 TableauEvenementsType_evenements-collection-duplicate TableauEvenementsType_evenements-collection-action btn-dupliquer" title="Dupliquer"><i class="material-icons">content_copy</i></a>
+            <a href="#" id="btn-tab" class="btn waves-effect blue accent-3 TableauEvenementsType_evenements-collection-remove TableauEvenementsType_evenements-collection-action btn-supprimer" title="Supprimer"><i class="material-icons">clear</i></a>
         </td>
     </tr>
 

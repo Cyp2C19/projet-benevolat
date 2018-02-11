@@ -17,17 +17,37 @@ class BenevoleAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->add('username');
+        $formMapper
+            ->add('email')
+            ->add('plainPassword', 'password', array(
+                'label' => 'Mot de passe'))
+            ->add('enabled', 'choice', array(
+                'label' => 'Activation email',
+                'choices' => array('Activé' => true, 'Non activé' => false),
+            ))
+            ->add('nom')
+            ->add('prenom')
+            ->add('telephone')
+            ->add('dateNaissance', 'date',[
+                'years' => range(date('1920'), date('Y'))
+            ]);
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        $datagridMapper->add('username');
+        $datagridMapper
+            ->add('email')
+            ->add('nom')
+            ->add('prenom');
     }
 
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper->addIdentifier('username');
+        $listMapper
+            ->addIdentifier('email')
+            ->add('nom')
+            ->add('prenom')
+            ->add('telephone');
     }
 
     public function toString($object)

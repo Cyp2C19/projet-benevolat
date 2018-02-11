@@ -8,11 +8,11 @@
 
 namespace AppBundle\Controller;
 use AppBundle\Entity\Evenement;
-use AppBundle\Entity\Lieu;
 use AppBundle\Form\EvenementType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Nzo\UrlEncryptorBundle\Annotations\ParamDecryptor;
 
 class EvenementController extends Controller
 {
@@ -31,11 +31,8 @@ class EvenementController extends Controller
             $evt->setDateModification(new \DateTime());
             // Club connecté
             $evt->setClub($club);
-            // Test si adresse existante et récupération lieu
-            $lieu = $this->testAdresse($form->get('lieu'));
 
             // Création de l'événement
-            $evt->setLieu($lieu);
             $em->persist($evt);
             $em->flush();
 
@@ -50,6 +47,9 @@ class EvenementController extends Controller
         return new Response($content);
     }
 
+    /**
+     * @ParamDecryptor(params={"id"})
+     */
     public function editAction($id, Request $request)
     {
         $evtRepository = $this->getDoctrine()->getRepository(Evenement::class);
@@ -62,11 +62,7 @@ class EvenementController extends Controller
             $em = $this->getDoctrine()->getManager();
             // Date de modification => Aujourd'hui
             $evt->setDateModification(new \DateTime());
-            // Test si adresse existante et récupération lieu
-            $lieu = $this->testAdresse($form->get('lieu'));
 
-            // Création de l'événement
-            $evt->setLieu($lieu);
             $em->persist($evt);
             $em->flush();
 
@@ -80,37 +76,4 @@ class EvenementController extends Controller
 
         return new Response($content);
     }
-
-    private function testAdresse($formAdresse){
-
-        $lieuRepository = $this->getDoctrine()->getRepository(Lieu::class);
-
-        // Récupération champs adresse
-        foreach ($formAdresse as $lieuForm) {
-            $lieuData[] = $lieuForm->getData();
-        }
-
-        $adresse = $lieuData[0];
-        $ville = $lieuData[1];
-        $cp = $lieuData[2];
-        // Recherche dans la bdd si adresse existante
-        $lieu = $lieuRepository->findOneBy(
-            array('adresse' => $adresse,
-                'ville' => $ville,
-                'codePostal' => $cp)
-        );
-        // Adresse non trouvée --> création dans la bdd
-        if(is_null($lieu)){
-            $em = $this->getDoctrine()->getManager();
-            $lieu = new Lieu();
-            $lieu->setAdresse($adresse);
-            $lieu->setVille($ville);
-            $lieu->setCodePostal($cp);
-            $em->persist($lieu);
-            $em->flush();
-        }
-
-        return $lieu;
-    }
-
 }

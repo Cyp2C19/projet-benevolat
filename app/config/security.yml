@@ -28,4 +28,4 @@ security:
             - { path: ^/creer-evenement, roles: ROLE_CLUB }
             - { path: ^/modifier-evenement, roles: ROLE_CLUB }
             - { path: ^/espace-benevole, roles: ROLE_BENEVOLE }
-            #- { path: ^/admin/, role: ROLE_ADMIN }
+            - { path: ^/admin/, role: ROLE_SUPER_ADMIN }

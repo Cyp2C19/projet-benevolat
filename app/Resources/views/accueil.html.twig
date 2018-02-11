@@ -1,24 +1,31 @@
 {% extends "layout.html.twig" %}
 
-{% block title %}Bienvenue sur Sport En Vienne !{% endblock %}
+{% block title %}Bienvenue sur Sport Events 86 !{% endblock %}
 
 {% block content %}
 
     <div id="banniere" class="parallax-container">
-        <div class="section no-pad-bot"><br><br><br>
+        <div class="section no-pad-bot"><br><br>
             <div class="row">
-            <div class="card col l5 offset-l1 s12 z-depth-4">
-                <h4 class="header center blue-text text-accent-3">Sport En Vienne</h4>
-                <div class="center">
-                    <p align="justify" style="font-size: 18px;" class="light">
+            <div class="card col l6 s12 z-depth-4" id="panelAccueil">
+                <div class="col s3">
+                    <div class="center">
+                    <br>
+                    <img src='{{ asset("img/logo3.png")}}' class="responsive-img" width="90%"/>
+                    <img src='{{ asset("img/cdos.jpg")}}' class="responsive-img" width="60%"/>
+                    </div>
+                </div>
+                <div class="col s9">
+                    <p align="justify" style="font-size: 16px;">
                         Ce site a pour vocation de présenter les différents événements sportifs qui ont lieu sur
                         le département de la Vienne et de proposer à des bénévoles de s’engager sur ces manifestations
-                        pour aider au bon déroulement de celles-ci.
+                        pour aider au bon déroulement de celles-ci.<br><br>
+                        Il appartient au Comité Départemental Olympique et Sportif de la Vienne.
                     </p>
-                </div>
-                <div class="center">
-                    <a href="#evenements" class="btn-large waves-effect waves-light blue accent-3">Les évenements à venir</a>
-                    <a href="#benevolat" class="btn-large waves-effect waves-light blue accent-3">Devenez bénevole</a>
+                    <div class="center">
+                        <a href="#evenements" class="btn waves-effect waves-light blue accent-3">Évenements à venir</a>
+                        <a href="#benevolat" class="btn waves-effect waves-light blue accent-3">Devenez bénevole</a>
+                    </div><br>
                 </div>
                 <br>
             </div>
@@ -33,7 +40,7 @@
                 {% set action = path('accueil') ~ '#evenements' %}
                 {{ form_start(form, {'method': 'POST', 'action': action }) }}
                 {{ form_widget(form._token) }}
-                <div class="card col s12 grey lighten-5">
+                <div class="card col s12 grey lighten-5 z-depth-3">
                     <div class="card-content">
                         <div class="col s12">
                             <div class="input-field col l4 s12">
@@ -42,7 +49,7 @@
                             </div>
                             <div class="input-field col l4 s12">
                                 <i class="material-icons prefix">add_location</i>
-                                {{ form_widget(form.lieu) }}
+                                {{ form_widget(form.ville) }}
                             </div>
                             <div class="input-field col l4 s12">
                                 <i class="material-icons prefix">event</i>
@@ -65,14 +72,14 @@
                             <div class="input-field col s12"></div>
                         </div>
                     </div>
-                    <a class="btn-floating halfway-fab waves-effect waves-light blue accent-3" id="afficherPlus">
+                    <a class="btn-floating halfway-fab waves-effect waves-light blue accent-3" title="Plus de critères" id="afficherPlus">
                         <i class="material-icons">add</i>
                     </a>
                     <a href="{{ path('resetCriteres') ~ "#evenements"}}"
-                       class="btn-floating halfway-fab waves-effect waves-light grey" id="clearAccueil">
+                       class="btn-floating halfway-fab waves-effect waves-light grey" title="Réinitialiser les critères" id="clearAccueil">
                         <i class="material-icons right">clear</i>
                     </a>
-                    <button class="btn-floating halfway-fab waves-effect waves-light blue accent-3" id="rechercheAccueil" type="submit">
+                    <button class="btn-floating halfway-fab waves-effect waves-light blue accent-3" title="Rechercher" id="rechercheAccueil" type="submit">
                         <i class="material-icons">search</i>
                     </button>
                 </div>
@@ -85,9 +92,10 @@
                                 <span style="font-size: 14px;"><b>{{ evt.titre }}</b></span><br>
                                 <span style="font-size: 12px;">
                                     Le {{ evt.dateDebut|date('d/m/Y') }} à {{ evt.horaire|date('H:i') }} H<br>
-                                    {{ evt.lieu.adresse }} - {{ evt.lieu.ville }}
+                                    {{ evt.adresse }} - {{ evt.ville }}
                                 </span>
-                                <a href="#detail_evenement{{ evt.id }}" class="modal-trigger secondary-content btn-floating halfway-fab waves-effect waves-light blue accent-3"><i class="material-icons">zoom_in</i></a>
+                                <a href="#detail_evenement{{ evt.id }}" class="modal-trigger secondary-content btn-floating halfway-fab waves-effect waves-light blue accent-3" title="Afficher en détail">
+                                    <i class="material-icons">zoom_in</i></a>
                                 <div class="card-action">
                                     {% if evt.contientDemandesBenevolat() %}
                                         <a href="#inscription_benevolat" class=" btn-small blue accent-3 modal-trigger">Besoin de bénévoles !</a>
@@ -103,12 +111,14 @@
                                                  class="circle">
                                         </div>
                                         <div class="col s11">
-                                            <h5>{{ evt.titre }}</h5>
-                                            Événement crée par : {{ evt.club.intitule.nom }}
+                                            <h5 class="header blue-text text-accent-3">{{ evt.titre }}</h5>
+                                            {% if evt.club.intitule != null %}
+                                                Événement crée par : {{ evt.club.intitule.nom }}
+                                            {% endif %}
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="card-panel grey lighten-5 z-depth-2 col s12">
+                                        <div class="card-panel grey lighten-5 z-depth-4 col s12">
                                             <div class="col l6 s12">
                                                 <p>
                                                     <b>Sport :</b> {{ evt.sport.intitule }}<br>
@@ -137,16 +147,15 @@
                                                     {% endif %}
                                                     <br>
                                                     <i class="material-icons">access_time</i> {{ evt.horaire|date('H:i') }} H<br>
-                                                    <i class="material-icons">location_on</i> {{ evt.lieu.adresse }} -
-                                                     {{ evt.lieu.ville }} - {{ evt.lieu.codePostal }}<br>
+                                                    <i class="material-icons">location_on</i> {{ evt.adresse }} -
+                                                     {{ evt.ville }} - {{ evt.codePostal }}<br>
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
                                     {% if evt.description != null %}
                                     <div class="row">
-                                        <div class="card-panel grey lighten-5 z-depth-2">
-                                            <h5>Description</h5>
+                                        <div class="card-panel grey lighten-5 z-depth-4">
                                             {{ evt.description }}
                                         </div>
                                     </div>
@@ -199,14 +208,14 @@
                     <br>
                     <h4 class="header center blue-text text-accent-3">Devenez bénévole</h4>
                     <div class="center">
-                        <p align="justify" style="font-size: 18px;" class="light">
+                        <p align="justify" style="font-size: 16px;margin-left:1.2em;margin-right:1.2em;">
                             Encadrer, entraîner, accompagner, participer aux événements de manière régulière ou ponctuelle, les bénévoles sportifs seraient plus de 3,5 millions en France.
                             Et contrairement aux idées reçues, ce nombre est même plutôt en augmentation. Ce qui change c’est l’engagement, qui devient moins régulier.
                             <br>Cependant cela reste un engagement qui demain pourra se pérenniser sur du long terme.
                         </p>
                     </div>
                     <div class="center">
-                        <a href="{{ path('benevole_registration') }}" class="btn-large waves-effect waves-light blue accent-3">S'inscrire</a>
+                        <a href="{{ path('benevole_registration') }}" class="btn waves-effect waves-light blue accent-3">S'inscrire</a>
                     </div>
                     <br>
                 </div>
@@ -256,7 +265,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn waves-effect blue darken-2" type="submit" name="action">Valider
+            <button class="btn waves-effect blue accent-3" type="submit" name="action">Valider
                 <i class="material-icons right">send</i>
             </button>
             <button class="modal-action modal-close btn waves-effect waves-light grey" name="action">Fermer
@@ -270,7 +279,6 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script type="text/javascript" src="{{ asset('js/jquery.materialize-autocomplete.js') }}"></script>
 
     <script type="text/javascript">
         $('#afficherPlus').click(function(){

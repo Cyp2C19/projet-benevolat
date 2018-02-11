@@ -3,5 +3,15 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block fos_user_content %}
-    <p>{{ 'registration.check_email'|trans({'%email%': user.email}) }}</p>
+    <br><br><br><br>
+    <div class="container">
+        <div class="row">
+            <div class="card col s12 z-depth-4">
+                <br>
+                <span class="card-title blue-text text-accent-3">INSCRIPTION EN ATTENTE DE VALIDATION</span></br>
+                    <p>{{ 'registration.check_email'|trans({'%email%': user.email}) }}</p>
+            </div>
+        </div>
+    </div>
+    <br><br><br><br>
 {% endblock fos_user_content %}

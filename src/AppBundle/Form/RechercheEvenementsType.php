@@ -43,9 +43,9 @@ class RechercheEvenementsType extends AbstractType
         if(isset($options['criteres']['categorie'])){
             $categorie = $options['criteres']['categorie']->getId();
         }
-        $lieu = 0;
-        if(isset($options['criteres']['lieu'])){
-            $lieu = $options['criteres']['lieu']->getId();
+        $ville = null;
+        if(isset($options['criteres']['ville'])){
+            $ville = $options['criteres']['ville'];
         }
         $date = null;
         if(isset($options['criteres']['date'])){
@@ -73,16 +73,16 @@ class RechercheEvenementsType extends AbstractType
                 'required' => false,
                 'data' => $date
             ))
-            ->add('lieu', EntityType::class, array(
-                'class'    => 'AppBundle\Entity\Lieu',
+            ->add('ville', EntityType::class, array(
+                'class'    => 'AppBundle\Entity\Evenement',
                 'choice_label' => 'ville',
                 'placeholder' => 'Ville',
-                'data' => $this->em->find('AppBundle\Entity\Lieu', $lieu),
+                'data' => $this->em->getRepository('AppBundle\Entity\Evenement')->findOneBy(array('ville' => $ville)),
                 'required' => false,
                 'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('l')
-                        ->groupBy('l.ville')
-                        ->orderBy('l.ville', 'ASC');
+                    return $er->createQueryBuilder('e')
+                        ->groupBy('e.ville')
+                        ->orderBy('e.ville', 'ASC');
                 },
                 'multiple' => false
             ))

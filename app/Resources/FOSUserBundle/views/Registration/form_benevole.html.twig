@@ -34,8 +34,9 @@
                                     <label for="date_naissance">Date de naissance *</label>
                                 </div>
                                 <div class="input-field col s12">
-                                    <i class="material-icons prefix">wc</i>
-                                    {{ form_widget(form.masculin) }}
+                                    <i class="material-icons prefix">local_phone</i>
+                                    {{ form_widget(form.telephone) }}
+                                    <label for="prenom">Téléphone *</label>
                                 </div>
                             </div>
                             <div class="col l6 s12">
@@ -57,18 +58,13 @@
                                     <span class="red-text">{{ form_errors(form.plainPassword.second) }}</span>
                                     <label for="confirm_mdp">Confirmation mot de passe *</label>
                                 </div>
-                                <div class="input-field col s12">
-                                    <i class="material-icons prefix">local_phone</i>
-                                    {{ form_widget(form.telephone) }}
-                                    <label for="prenom">Téléphone *</label>
-                                </div>
                             </div>
                             * Champs obligatoires
                         </div>
 
                         <div class="col l6 offset-l6 s12">
                             <div class="row">
-                                <button class="btn waves-effect blue darken-2" type="submit" name="action">Valider
+                                <button class="btn waves-effect blue accent-3" type="submit" name="action">Valider
                                     <i class="material-icons right">send</i>
                                 </button>
                                 <button class="btn waves-effect waves-light grey" type="reset" name="action">Réinitialiser

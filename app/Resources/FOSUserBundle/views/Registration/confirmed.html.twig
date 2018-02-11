@@ -3,20 +3,27 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block fos_user_content %}
-    <div class="center-align">
-        <br><h3>Inscription terminée</h3><br>
-        <h5>{{ user.email}}</h5>
-        {% if app.user.getIntitule is defined %}
-            <h5>{{ user.intitule.nom}}</h5><br>
-            <a href="{{ path('creation_evenement') }}" class="btn-large waves-effect waves-light blue accent-3">Créer un événement</a>
-        {% else %}
-            <h5>{{ user.prenom}} {{ user.nom}}</h5>
-            <h5>{{ user.telephone}}</h5>
-        {% endif %}
-        <br><br><br>
-
-        {% if targetUrl %}
-        <p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>
-        {% endif %}
+    <br><br><br><br>
+    <div class="container">
+        <div class="row">
+            <div class="card col s12 z-depth-4">
+                <br>
+                <span class="card-title blue-text text-accent-3">INSCRIPTION RÉUSSIE</span></br>
+                {% if is_granted('ROLE_CLUB') and not is_granted('ROLE_SUPER_ADMIN')%}
+                    <p>Votre adresse email a été validée. Vous pouvez maintenant accèder à votre espace en cliquant
+                        sur votre club à droite dans la barre de navigation.<br>
+                        Vous pourrez ainsi gérer vos événements et les informations liées au compte.
+                    </p>
+                {% endif %}
+                {% if is_granted('ROLE_BENEVOLE')%}
+                    <p>Votre adresse email a été validée. Retournez à la page d'accueil pour voir les événements
+                        à venir et contactez les clubs afin de participer aux missions de bénévolat.
+                        <br><br>Pour accéder à votre espace bénévole, cliquez sur votre prénom à droite dans la barre de navigation.<br>
+                        Vous pourrez ainsi visualiser vos demandes de bénévolat et modifier vos informations personnelles.<br>
+                    </p>
+                {% endif %}
+            </div>
+        </div>
     </div>
+    <br><br><br><br>
 {% endblock fos_user_content %}

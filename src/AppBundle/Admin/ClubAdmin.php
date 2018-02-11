@@ -31,19 +31,28 @@ class ClubAdmin extends AbstractAdmin
                 'placeholder' => 'Choix d\'un sport',
                 'required' => false,
                 'multiple' => false
+            ))
+            ->add('plainPassword', 'password', array(
+                'label' => 'Mot de passe'))
+            ->add('enabled', 'choice', array(
+                'label' => 'Activation email',
+                'choices' => array('Activé' => true, 'Non activé' => false),
             ));
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('email');
+            ->add('email')
+            ->add('intitule.nom');
     }
 
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('email');
+            ->addIdentifier('email')
+            ->add('intitule.nom')
+            ->add('sportParDefaut.intitule');
     }
 
     public function toString($object)

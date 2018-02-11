@@ -70,6 +70,10 @@ swiftmailer:
     port: '%mailer_port%'
     auth_mode: '%mailer_auth_mode%'
     encryption: '%mailer_encryption%'
+    stream_options:
+          ssl:
+            allow_self_signed: true
+            verify_peer: false
 
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
@@ -82,7 +86,7 @@ fos_user:
         user_manager: pugx_user_manager
     from_email:
         address: "mailer.symfony.test@gmail.com"
-        sender_name: "Sport En Vienne"
+        sender_name: "Sport Events 86"
 
 pugx_multi_user:
   users:
@@ -126,8 +130,8 @@ sonata_block:
             contexts:   [admin]
 
 sonata_admin:
-    title:      Sport En Vienne
-    title_logo: img/logo.png
+    title:      Sport Events 86
+    title_logo: img/logo3.png
     dashboard:
         blocks:
             -
@@ -149,6 +153,7 @@ sonata_admin:
                   - admin.niveau
                   - admin.categorieAge
                   - admin.missionBenevolat
+                  - admin.nomClub
 
             utilisateurs:
               label: Utilisateurs
@@ -156,3 +161,8 @@ sonata_admin:
               items:
                    - admin.club
                    - admin.benevole
+
+nzo_url_encryptor:
+    secret_key: YourSecretEncryptionKey    # optional, max length of 100 characters.
+    secret_iv:  YourIvEncryptionKey        # optional, max length of 100 characters.
+    cipher_algorithm:                      # optional, default: 'aes-256-ctr'

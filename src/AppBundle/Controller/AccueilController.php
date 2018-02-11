@@ -2,7 +2,6 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Evenement;
 use AppBundle\Form\RechercheEvenementsType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,8 +45,8 @@ class AccueilController extends Controller
         if(!is_null($form['sport']->getData())) {
             $tabCriteres['sport'] = $form['sport']->getData();
         }
-        if(!is_null($form['lieu']->getData())){
-            $tabCriteres['lieu'] = $form['lieu']->getData();
+        if(!is_null($form['ville']->getData())){
+            $tabCriteres['ville'] = $form['ville']->getData();
         }
         if(!is_null($form['dateDebut']->getData())) {
             $tabCriteres['date'] = $form['dateDebut']->getData();
@@ -66,7 +65,7 @@ class AccueilController extends Controller
         $this->get('session')->set('criteres', $tabCriteres);
     }
 
-    public function resetCriteresAction(Request $request){
+    public function resetCriteresAction(){
         $this->get('session')->remove('criteres');
         return $this->redirectToRoute('accueil');
     }

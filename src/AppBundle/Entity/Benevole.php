@@ -61,13 +61,6 @@ class Benevole extends Utilisateur
     private $telephone;
 
     /**
-     * @var boolean
-     *
-     * @ORM\Column(name="masculin", type="boolean", nullable=false)
-     */
-    private $masculin;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="dateNaissance", type="date", nullable=false)
@@ -123,22 +116,6 @@ class Benevole extends Utilisateur
     }
 
     /**
-     * @return bool
-     */
-    public function isMasculin()
-    {
-        return $this->masculin;
-    }
-
-    /**
-     * @param bool $masculin
-     */
-    public function setMasculin($masculin)
-    {
-        $this->masculin = $masculin;
-    }
-
-    /**
      * @return \DateTime
      */
     public function getDateNaissance()
@@ -152,6 +129,9 @@ class Benevole extends Utilisateur
     public function setDateNaissance($dateNaissance)
     {
         $this->dateNaissance = $dateNaissance;
+    }
+
+    public function __construct() {
         $this->setRoles(array('ROLE_BENEVOLE'));
     }
 }

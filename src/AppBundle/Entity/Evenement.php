@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Evenement
  *
- * @ORM\Table(name="evenement", indexes={@ORM\Index(name="FK_IDSPORT_EVENEMENT", columns={"sport"}), @ORM\Index(name="FK_IDCLUB_EVENEMENT", columns={"club"}), @ORM\Index(name="FK_IDLIEU_EVENEMENT", columns={"lieu"}), @ORM\Index(name="FK_IDNIVEAU_EVENEMENT", columns={"niveau"}), @ORM\Index(name="FK_IDCATEGORIEAGE_EVENEMENT", columns={"categorieAge"})})
+ * @ORM\Table(name="evenement", indexes={@ORM\Index(name="FK_IDSPORT_EVENEMENT", columns={"sport"}), @ORM\Index(name="FK_IDCLUB_EVENEMENT", columns={"club"}), @ORM\Index(name="FK_IDNIVEAU_EVENEMENT", columns={"niveau"}), @ORM\Index(name="FK_IDCATEGORIEAGE_EVENEMENT", columns={"categorieAge"})})
  * @ORM\Entity(repositoryClass="AppBundle\Entity\EvenementRepository")
  */
 class Evenement
@@ -113,14 +113,35 @@ class Evenement
     private $club;
 
     /**
-     * @var \AppBundle\Entity\Lieu
-     * @Assert\Valid()
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Lieu")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="lieu", referencedColumnName="id", nullable=false)
-     * })
+     * @var string
+     * @Assert\NotBlank(message="Veuillez sélectionner une adresse sur la carte")
+     * @ORM\Column(name="adresse", type="string", length=255, nullable=false)
      */
-    private $lieu;
+    private $adresse;
+
+    /**
+     * @var string
+     *
+     * @Assert\Length(
+     *     max=100,
+     *      maxMessage = "La ville ne doit pas dépasser {{ limit }} caractères"
+     * )
+     *
+     * @ORM\Column(name="ville", type="string", length=100, nullable=false)
+     */
+    private $ville;
+
+    /**
+     * @var string
+     *
+     * @Assert\Length(
+     *     max=5,
+     *      maxMessage = "Le code postal ne doit pas dépasser {{ limit }} caractères"
+     * )
+     *
+     * @ORM\Column(name="codePostal", type="string", length=5, nullable=true)
+     */
+    private $codePostal;
 
     /**
      * @var \AppBundle\Entity\Niveau
@@ -348,19 +369,51 @@ class Evenement
     }
 
     /**
-     * @return Lieu
+     * @return string
      */
-    public function getLieu()
+    public function getAdresse()
     {
-        return $this->lieu;
+        return $this->adresse;
     }
 
     /**
-     * @param Lieu $lieu
+     * @param string $adresse
      */
-    public function setLieu($lieu)
+    public function setAdresse($adresse)
     {
-        $this->lieu = $lieu;
+        $this->adresse = $adresse;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVille()
+    {
+        return $this->ville;
+    }
+
+    /**
+     * @param string $ville
+     */
+    public function setVille($ville)
+    {
+        $this->ville = $ville;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCodePostal()
+    {
+        return $this->codePostal;
+    }
+
+    /**
+     * @param string $codePostal
+     */
+    public function setCodePostal($codePostal)
+    {
+        $this->codePostal = $codePostal;
     }
 
     /**

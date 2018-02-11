@@ -1,24 +1,29 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block fos_user_content %}
+    <br><br><br>
     <div class="container">
-        <br><br><br>
-        <div class="card-panel hoverable grey lighten-5 z-depth-1 ">
-            <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
-                <div>
-                    <label for="username">{{ 'resetting.request.username'|trans }}</label>
-                    <input type="text" id="username" name="username" required="required" />
-                </div>
-                <br>
-                <div class="right">
-                    <button class="btn waves-effect blue darken-2" id="sub" type="submit" name="action">
-                        Réinitialiser le mot de passe
-                        <i class="material-icons right">send</i>
-                    </button>
-                </div>
-                <br><br>
-            </form>
+        <div class="row">
+            <div class="card hoverable grey lighten-5 z-depth-1 col s12">
+                <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
+                    <br>
+                    <span class="card-title blue-text text-accent-3">RÉINITIALISER SON MOT DE PASSE</span></br><br>
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">email</i>
+                        <input type="text" id="username" name="username" required="required" />
+                        <label>Adresse email</label>
+                    </div>
+                    <br>
+                    <div class="right">
+                        <button class="btn waves-effect blue accent-3" id="sub" type="submit" name="action">
+                            Réinitialiser le mot de passe
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                    <div class="input-field col s12"></div>
+                </form>
+            </div>
         </div>
-        <br><br><br>
     </div>
+    <br><br><br><br>
 {% endblock fos_user_content %}

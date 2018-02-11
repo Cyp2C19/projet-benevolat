@@ -9,8 +9,6 @@
 namespace AppBundle\Entity;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use InvalidArgumentException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EvenementRepository extends EntityRepository
 {
@@ -21,12 +19,11 @@ class EvenementRepository extends EntityRepository
             $date = $criteres['date'];
         }
         else{
-            $date = date('Y-m-d H:i:s');
+            $date = date('Y-m-d');
         }
 
         $qb = $this->createQueryBuilder('e')
-            ->select('e', 'l')
-            ->leftJoin('e.lieu', 'l')
+            ->select('e')
             ->where('e.dateDebut >= :date')
             ->orWhere(':date between e.dateDebut and e.dateFin')
             ->orderBy('DATE_DIFF(e.dateDebut, :date)')
@@ -52,10 +49,10 @@ class EvenementRepository extends EntityRepository
             $qb->andWhere('e.interieur = :interieur')
                 ->setParameter('interieur', $criteres['interieur']);
         }
-        if(isset($criteres['lieu']) && !is_null($criteres['lieu']))
+        if(isset($criteres['ville']) && !is_null($criteres['ville']))
         {
-            $qb->andWhere('l.ville like :ville')
-                ->setParameter('ville', $criteres['lieu']->getVille());
+            $qb->andWhere('e.ville like :ville')
+                ->setParameter('ville', $criteres['ville']->getVille());
         }
         $query = $qb->getQuery();
 

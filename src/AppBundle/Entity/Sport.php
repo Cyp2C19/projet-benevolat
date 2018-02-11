@@ -83,5 +83,9 @@ class Sport
         $this->logo = $logo;
     }
 
+    public function __construct()
+    {
+        $this->logo = "defaut.png";
+    }
 }
 

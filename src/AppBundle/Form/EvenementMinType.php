@@ -10,7 +10,6 @@ namespace AppBundle\Form;
 use AppBundle\Form\Type\DateAndTimeType;
 use AppBundle\Form\Type\EntityToIdType;
 use AppBundle\Form\Type\TimerType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -37,22 +36,30 @@ class EvenementMinType extends AbstractType
                 'label' => false
             ))
             ->add('dateFin', DateAndTimeType::class, array(
-                'label' => false
+                'label' => false,
+                'required' => false
             ))
             ->add('horaire', TimerType::class, array(
                 'label' => false
             ))
-            ->add('club', HiddenType::class)
+            ->add('description', TextType::class, array(
+                'label' => false,
+                'required' => false
+            ))
+            ->add('tarifPlein', HiddenType::class)
+            ->add('tarifReduit', HiddenType::class)
+            ->add('interieur', HiddenType::class)
             ->add('niveau', HiddenType::class)
             ->add('categorieAge', HiddenType::class)
-            ->add('lieu', HiddenType::class)
+            ->add('adresse', HiddenType::class)
+            ->add('ville', HiddenType::class)
+            ->add('codePostal', HiddenType::class)
             ->add('club', HiddenType::class)
             ->add('sport', HiddenType::class)
             ->add('id', HiddenType::class);
             // Ajout des DataTransformer pour passer des id aux objets et inversement
             $builder ->get('niveau')->addModelTransformer(new EntityToIdType($this->em, 'AppBundle\Entity\Niveau'));
             $builder ->get('categorieAge')->addModelTransformer(new EntityToIdType($this->em, 'AppBundle\Entity\CategorieAge'));
-            $builder->get('lieu')->addModelTransformer(new EntityToIdType($this->em, 'AppBundle\Entity\Lieu'));
             $builder->get('club')->addModelTransformer(new EntityToIdType($this->em, 'AppBundle\Entity\Club'));
             $builder->get('sport')->addModelTransformer(new EntityToIdType($this->em, 'AppBundle\Entity\Sport'));
     }

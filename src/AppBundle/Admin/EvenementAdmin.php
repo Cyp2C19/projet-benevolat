@@ -12,17 +12,18 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use AppBundle\Entity\Evenement;
-use Sonata\CoreBundle\Form\Type\DatePickerType;
-use Sonata\CoreBundle\Form\Type\DateTimePickerType;
-use AppBundle\Form\LieuType;
 
 class EvenementAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('Événement')
+            ->with('Informations générales')
             ->add('titre')
+            ->add('club', 'entity', [
+                'label' => 'Organisateur',
+                'class' => 'AppBundle\Entity\Club'
+            ])
             ->add('sport', 'entity', [
                 'class' => 'AppBundle\Entity\Sport',
                 'choice_label' => 'intitule',
@@ -58,33 +59,47 @@ class EvenementAdmin extends AbstractAdmin
             ->end()
 
             ->with('Dates')
-            ->add('dateDebut', DatePickerType::class, [
+            ->add('dateDebut', 'date', [
                 'label' => 'Date de début'
             ])
-            ->add('dateFin', DatePickerType::class, [
+            ->add('dateFin', 'date', [
                 'label' => 'Date de fin',
                 'required' => false
             ])
-            ->add('horaire', DateTimePickerType::class, [
+            ->add('horaire', 'time', [
                 'label' => 'Horaire'
             ])
             ->end()
 
             ->with('Lieu')
-            ->add('lieu', LieuType::class)
+            ->add('adresse', 'text')
+            ->add('ville', 'text')
+            ->add('codePostal', 'text')
             ->end()
         ;
-
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        $datagridMapper->add('titre');
+        $datagridMapper
+            ->add('titre')
+            ->add('sport.intitule')
+            ->add('niveau.type')
+            ->add('categorieAge.type');
     }
 
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper->addIdentifier('titre');
+        $listMapper
+            ->addIdentifier('titre')
+            ->add('club')
+            ->add('sport.intitule')
+            ->add('niveau.type')
+            ->add('categorieAge.type')
+            ->add('ville')
+            ->add('dateDebut')
+            ->add('dateFin')
+            ->add('horaire');
     }
 
     public function toString($object)

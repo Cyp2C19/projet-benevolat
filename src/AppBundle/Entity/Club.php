@@ -46,7 +46,7 @@ class Club extends Utilisateur
 
     // ...
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Evenement", mappedBy="club", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Evenement", mappedBy="club", cascade="all", orphanRemoval=true)
      * @ORM\OrderBy({"dateModification" = "DESC"})
      */
     private $evenements;
@@ -94,6 +94,30 @@ class Club extends Utilisateur
     }
 
     /**
+     * Add evenement
+     *
+     * @param Evenement $evt
+     *
+     * @return Club
+     */
+    public function addEvenement(Evenement $evt)
+    {
+        $this->evenements[] = $evt;
+        return $this;
+    }
+
+    /**
+     * Remove evenement
+     *
+     * @param Evenement $evt
+     */
+    public function removeEvenement(Evenement $evt)
+    {
+        $this->evenements->removeElement($evt);
+    }
+
+
+    /**
      * @return mixed
      */
     public function getEvenements()
@@ -117,13 +141,6 @@ class Club extends Utilisateur
         $this->sportParDefaut = $sportParDefaut;
     }
 
-    /**
-     * @param mixed $evenements
-     */
-    public function setEvenements($evenements)
-    {
-        $this->evenements = $evenements;
-    }
 
     public function __construct() {
         $this->evenements = new ArrayCollection();

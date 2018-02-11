@@ -8,9 +8,9 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Valid;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Doctrine\ORM\EntityRepository;
 
@@ -49,8 +49,14 @@ class EvenementType extends AbstractType
             ->add('description', TextareaType::class, array(
                 'required'    => false,
             ))
-            ->add('lieu', LieuType::class, array(
-                'constraints' => array(new Valid()),
+            ->add('adresse', TextType::class, array(
+                'required' => false,
+            ))
+            ->add('ville', TextType::class, array(
+                'required' => false,
+            ))
+            ->add('codePostal', TextType::class, array(
+                'required' => false
             ))
             ->add('niveau', EntityType::class, array(
                 'class'    => 'AppBundle\Entity\Niveau',

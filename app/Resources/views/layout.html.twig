@@ -5,7 +5,7 @@
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <title>{% block title %}Sport En Vienne{% endblock %}</title>
+    <title>{% block title %}Sport Events 86{% endblock %}</title>
 
     {% block stylesheets %}
         <!--Import Google Icon Font-->
@@ -21,44 +21,50 @@
 <body>
     <!-- Dropdown Structure -->
     <ul id="choix-inscription" class="dropdown-content">
-        <li><a href="{{ path('club_registration') }}">Club</a></li>
+        <li><a href="{{ path('club_registration') }}">CLUB</a></li>
         <li class="divider"></li>
-        <li><a href="{{ path('benevole_registration') }}">Bénévole</a></li>
+        <li><a href="{{ path('benevole_registration') }}">BÉNÉVOLE</a></li>
     </ul>
 
     <nav>
         <div class="nav-wrapper blue accent-3 z-depth-3">
-            <a href="{{ path('accueil') }}" class="brand-logo center">
-                <img src='{{ asset("img/logo2.png")}}' class="responsive-img" width="33%"/>
+            <a href="{{ path('accueil') }}" class="brand-logo center" style="font-family: 'Agency FB';font-size: 40px;">
+                Sport Events 86
             </a>
             <a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                     <li>
-                    {% if app.user.getIntitule is defined %}
-                        <a href="{{ path('espace_club') }}">
-                            {{ app.user.intitule.nom}}
-                        </a>
-                    {% else %}
-                        <a href="{{ path('espace_benevole') }}">
-                            {{ app.user.prenom}}
-                        </a>
-                    {% endif %}
+                        {% if is_granted('ROLE_CLUB') and not is_granted('ROLE_SUPER_ADMIN')%}
+                            <a href="{{ path('espace_club') }}">
+                                {{ app.user.intitule.nom|upper}}
+                            </a>
+                        {% endif %}
+                        {% if is_granted('ROLE_BENEVOLE') %}
+                            <a href="{{ path('espace_benevole') }}">
+                                {{ app.user.prenom|upper}}
+                            </a>
+                        {% endif %}
+                        {% if is_granted('ROLE_SUPER_ADMIN') %}
+                            <a href="{{ path('sonata_admin_dashboard') }}">
+                                TABLEAU DE BORD ADMIN
+                            </a>
+                        {% endif %}
                     </li>
                     <li>
-                    <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+                    <a href="{{ path('fos_user_security_logout') }}">DÉCONNEXION</a>
                     </li>
                 {% else %}
                     <li>
-                    <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+                    <a href="{{ path('fos_user_security_login') }}">CONNEXION</a>
                     </li>
                     <!-- Dropdown Trigger -->
-                    <li><a class="dropdown-button" href="#!" data-activates="choix-inscription">Inscription
+                    <li><a class="dropdown-button" href="#!" data-activates="choix-inscription">INSCRIPTION
                             <i class="material-icons right">arrow_drop_down</i></a></li>
                 {% endif %}
             </ul>
             <ul class="left hide-on-med-and-down">
-                <li><a href="{{ path('accueil') }}">Accueil</a></li>
+                <li><a href="{{ path('accueil') }}">ACCUEIL</a></li>
             </ul>
             <ul class="side-nav" id="mobile-menu">
                 <li><a href="{{ path('accueil') }}">Accueil</a></li>
@@ -76,23 +82,35 @@
     <footer class="page-footer blue accent-3" id="footer">
         <div class="container">
             <div class="row">
-                <div class="col l8 s12">
-                    <h5 class="white-text">A propos</h5>
+                <div class="col l7 s12">
+                    <h5 class="white-text">Nous contacter</h5>
                     <p class="grey-text text-lighten-4">
-                        Description de l'application, projet ...
+                        CDOS Vienne - Maison des Sports<br>
+                        6, allée Jean Monnet – Bâtiment C3 <br>
+                        86000 POITIERS <br>
+                        Tel : 05 86 28 00 10 <br>
+                        vienne@franceolympique.com
                     </p>
                 </div>
-                <div class="col l4 s12">
-                    <h5 class="white-text">En collaboration avec</h5>
-                    <ul>
-                        <li><a class="white-text" href="#!">Logo CDOS</a></li>
-                    </ul>
+                <div class="col l5 s12">
+                    <div class="center">
+                        <h5 class="white-text">En collaboration avec</h5><br>
+                        <div class="col s3">
+                            <img src='{{ asset("img/cdos.jpg")}}' class="responsive-img"/>
+                        </div>
+                        <div class="col s4">
+                            <img src='{{ asset("img/logoGphy.jpg")}}' class="responsive-img" width="96%"/>
+                        </div>
+                        <div class="col s5"><br>
+                            <img src='{{ asset("img/logoFac.jpg")}}' class="responsive-img"/>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="footer-copyright">
             <div class="container">
-                <p>Fait par Bérengere, Cyprien, Pierre, Rudy ...</p>
+                <p>Développé par Bérengère Pera, Cyprien Zouaoui, Pierre Agostini, Rudy Aussel (Étudiants en Master 2 GPHY)</p>
             </div>
         </div>
     </footer>

@@ -83,7 +83,11 @@ services:
                     tags:
                         - { name: sonata.admin, manager_type: orm, label: Bénévoles }
                     public: true
-    # add more services, or override services that need manual wiring
-    # AppBundle\Service\ExampleService:
-    #     arguments:
-    #         $someArgument: 'some_value'
+
+    admin.nomClub:
+                        class: AppBundle\Admin\NomClubAdmin
+                        arguments: [~, AppBundle\Entity\NomClub, ~]
+                        tags:
+                            - { name: sonata.admin, manager_type: orm, label: Intitulés de club }
+                        public: true
+
