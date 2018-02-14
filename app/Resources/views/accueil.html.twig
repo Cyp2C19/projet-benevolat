@@ -11,7 +11,7 @@
                 <div class="col s3">
                     <div class="center">
                     <br>
-                    <img src='{{ asset("img/logo3.png")}}' class="responsive-img" width="90%"/>
+                    <img src='{{ asset("img/logo3.png")}}' class="responsive-img"/>
                     <img src='{{ asset("img/cdos.jpg")}}' class="responsive-img" width="60%"/>
                     </div>
                 </div>
@@ -38,36 +38,36 @@
         <div class="section" id="evenements">
             <div class="row">
                 {% set action = path('accueil') ~ '#evenements' %}
-                {{ form_start(form, {'method': 'POST', 'action': action }) }}
-                {{ form_widget(form._token) }}
+                {{ form_start(formRecherche, {'method': 'POST', 'action': action }) }}
+                {{ form_widget(formRecherche._token) }}
                 <div class="card col s12 grey lighten-5 z-depth-3">
                     <div class="card-content">
                         <div class="col s12">
                             <div class="input-field col l4 s12">
                                 <i class="material-icons prefix">directions_run</i>
-                                {{ form_widget(form.sport) }}
+                                {{ form_widget(formRecherche.sport) }}
                             </div>
                             <div class="input-field col l4 s12">
                                 <i class="material-icons prefix">add_location</i>
-                                {{ form_widget(form.ville) }}
+                                {{ form_widget(formRecherche.ville) }}
                             </div>
                             <div class="input-field col l4 s12">
                                 <i class="material-icons prefix">event</i>
-                                {{ form_widget(form.dateDebut, {'attr': {'class': 'datepicker'} }) }}
+                                {{ form_widget(formRecherche.dateDebut, {'attr': {'class': 'datepicker'} }) }}
                                 <label for="icon_prefix">Date</label>
                             </div>
                             <div class="input-field col s12"></div>
                         </div>
                         <div class="col s12" id="criteres" style="display: none;">
                             <div class="input-field col l4 s12">
-                                {{ form_widget(form.niveau) }}
+                                {{ form_widget(formRecherche.niveau) }}
                             </div>
                             <div class="input-field col l4 s12">
-                                {{ form_widget(form.categorieAge) }}
+                                {{ form_widget(formRecherche.categorieAge) }}
                             </div>
                             <div class="col l3 s12">
                                 <br>
-                                {{ form_widget(form.interieur) }}
+                                {{ form_widget(formRecherche.interieur) }}
                             </div>
                             <div class="input-field col s12"></div>
                         </div>
@@ -83,7 +83,7 @@
                         <i class="material-icons">search</i>
                     </button>
                 </div>
-                {{ form_end(form) }}
+                {{ form_end(formRecherche) }}
                 <div class="col s12">
                     {% if events|length > 0 %}
                         {% for evt in events %}
@@ -98,7 +98,7 @@
                                     <i class="material-icons">zoom_in</i></a>
                                 <div class="card-action">
                                     {% if evt.contientDemandesBenevolat() %}
-                                        <a href="#inscription_benevolat" class=" btn-small blue accent-3 modal-trigger">Besoin de bénévoles !</a>
+                                        <a href="#inscription_benevolat{{ evt.id }}" class=" btn-small blue accent-3 modal-trigger">Besoin de bénévoles !</a>
                                     {% endif %}
                                 </div>
                             </div>
@@ -166,6 +166,56 @@
                                         <i class="fa fa-facebook"></i> Partager sur Facebook</a>
                                 </div>
                             </div>
+
+                            <div id="inscription_benevolat{{ evt.id }}" class="modal modal-fixed-footer">
+                                <div class="modal-content">
+                                    <h6 class="header blue-text text-accent-3"><b>DEMANDE DE PARTICIPATION EN TANT QUE BÉNÉVOLE À L'ÉVÉNEMENT</b></h6>
+                                    {% if evt.club.intitule != null %}
+                                        Organisé par : {{ evt.club.intitule.nom }}
+                                    {% endif %}
+                                    <div class="row"><br>
+                                        {% if is_granted('ROLE_BENEVOLE') %}
+                                            <input id="demandeEvt" type="hidden" value="{{ evt.id }}">
+                                            <input id="demandeUser" type="hidden" value="{{ app.user.id }}">
+                                            <i class="material-icons">person</i>
+                                            {{ app.user.prenom}} {{ app.user.nom}}<br>
+                                            <i class="material-icons">event</i>
+                                            {{ app.user.getAge()}} ans<br>
+                                            <i class="material-icons prefix">local_phone</i>
+                                            {{ app.user.telephone}}<br>
+                                            <div class="input-field col s12">
+                                                <select multiple id="selectDemandes">
+                                                    <option value="" disabled selected>Choix des missions de bénévolat</option>
+                                                    {% for demande in evt.demandesBenevolat %}
+                                                        <option value="{{ demande.type }}">{{ demande.type }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            <div class="input-field col s12"></div>
+                                            <div class="input-field col s12">
+                                                <textarea class="materialize-textarea" data-length="500" id="texteDemande"></textarea>
+                                                <label for="textarea1">Expliquez vos motivations</label>
+                                            </div>
+                                        {% else %}<br>
+                                            Vous n'êtes pas connecté au site en tant que Bénévole. <br><br>
+                                            <a href="{{ path('fos_user_security_login') }}">Connectez-vous</a>
+                                            ou <a href="{{ path('benevole_registration') }}">inscrivez-vous</a> sur le site pour envoyer une demande
+                                            de participation au club concerné.
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                {% if is_granted('ROLE_BENEVOLE') %}
+                                <div class="modal-footer">
+                                    <button class="btn waves-effect blue accent-3" onclick="envoyerDemande()">Envoyer
+                                        <i class="material-icons right">send</i>
+                                    </button>
+                                    <button class="modal-action modal-close btn waves-effect waves-light grey" name="action">Fermer
+                                        <i class="material-icons right">clear</i>
+                                    </button>
+                                </div>
+                                {% endif %}
+                            </div>
+
                         {% endfor %}
                     {% else %}
                         <div class="card-panel grey lighten-5">
@@ -224,57 +274,6 @@
         <div class="parallax"><img src='{{ asset("img/benevolat.png")}}'></div>
     </div>
 
-    <div id="inscription_benevolat" class="modal modal-fixed-footer">
-        <div class="modal-content">
-            <h6 class="header">INSCRIPTION EN TANT QUE BÉNÉVOLE À L'ÉVÉNEMENT</h6>
-            <div class="row">
-                <div class="col m10 offset-m1 s12">
-                        <div class="row">
-                            <div class="input-field col s6">
-                                <i class="material-icons prefix">account_circle</i>
-                                <input id="nom" type="text" class="validate" disabled selected>
-                                <label for="nom">Dupont</label>
-                            </div>
-                            <div class="input-field col s6">
-                                <i class="material-icons prefix">account_circle</i>
-                                <input id="prenom" type="text" class="validate" disabled selected>
-                                <label for="prenom">Toto</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-field col s6">
-                                <i class="material-icons prefix">language</i>
-                                <select>
-                                    <option value="" disabled selected>Type de poste</option>
-                                    <option value="1">Restauration</option>
-                                    <option value="2">Parking</option>
-                                    <option value="3">Entrée</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <textarea id="textarea1" class="materialize-textarea" data-length="500"></textarea>
-                                <label for="textarea1">
-                                    <i class="material-icons">edit</i>
-                                    Expliquez vos motivations en quelques mots
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button class="btn waves-effect blue accent-3" type="submit" name="action">Valider
-                <i class="material-icons right">send</i>
-            </button>
-            <button class="modal-action modal-close btn waves-effect waves-light grey" name="action">Fermer
-                <i class="material-icons right">clear</i>
-            </button>
-        </div>
-    </div>
-
-
 {% endblock %}
 
 {% block javascripts %}
@@ -310,6 +309,24 @@
             close: 'Ok',
             closeOnSelect: false // Close upon selecting a date,
         });
+
+        function envoyerDemande() {
+            obj = new Object();
+            obj["demandes"] = $('#selectDemandes').val();
+            obj["texteMotivation"] = $('#texteDemande').val();
+            obj["evt"] = $('#demandeEvt').val();
+            obj["user"] = $('#demandeUser').val();
+
+            $.ajax({
+                type: "POST",
+                url:'{{ (path('demandeBenevolat')) }}',
+                data: obj,
+                dataType: "json",
+                success: function(response) {
+                    window.location.href = response;
+                }
+            });
+        }
 
     </script>
 {% endblock %}

@@ -18,7 +18,13 @@ class SportAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->add('intitule');
+        $formMapper
+            ->add('intitule')
+            ->add('logo', 'file', [
+                'data_class' => null,
+                'label' => 'Logo sport (Taille conseillée : 128 x 128 pixels)',
+                'required' => false
+            ]);
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)

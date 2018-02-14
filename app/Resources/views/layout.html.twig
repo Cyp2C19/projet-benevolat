@@ -68,9 +68,26 @@
             </ul>
             <ul class="side-nav" id="mobile-menu">
                 <li><a href="{{ path('accueil') }}">Accueil</a></li>
-                <li><a href="#!">Connexion</a></li>
+                <li><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
                 <li><a href="{{ path('club_registration') }}">Inscription Club</a></li>
                 <li><a href="{{ path('benevole_registration') }}">Inscription Bénévole</a></li>
+                <li>
+                    {% if is_granted('ROLE_CLUB') and not is_granted('ROLE_SUPER_ADMIN')%}
+                        <a href="{{ path('espace_club') }}">
+                            {{ app.user.intitule.nom}}
+                        </a>
+                    {% endif %}
+                    {% if is_granted('ROLE_BENEVOLE') %}
+                        <a href="{{ path('espace_benevole') }}">
+                            {{ app.user.prenom}}
+                        </a>
+                    {% endif %}
+                    {% if is_granted('ROLE_SUPER_ADMIN') %}
+                        <a href="{{ path('sonata_admin_dashboard') }}">
+                            Admin
+                        </a>
+                    {% endif %}
+                </li>
             </ul>
         </div>
     </nav>

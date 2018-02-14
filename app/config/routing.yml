@@ -6,6 +6,10 @@ resetCriteres:
     path:     /reset-criteres
     defaults: { _controller: AppBundle:Accueil:resetCriteres}
 
+demandeBenevolat:
+    path:     /demande-benevolat
+    defaults: { _controller: AppBundle:Accueil:envoiMail}
+
 detail_evenement:
     path:     /evenement
     defaults: { _controller: AppBundle:Accueil:chargerEvenement }

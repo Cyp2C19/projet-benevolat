@@ -1,0 +1,34 @@
+Bonjour
+{% if evt.club.intitule != null %}
+    {{ evt.club.intitule.nom }}
+{% endif %}!<br><br>
+
+Vous avez reçu une demande de bénévolat  pour les missions suivantes :
+<ul>
+    {% for demande in demandes %}
+    <li>
+        {{ demande }}
+    </li>
+    {% endfor %}
+</ul>
+
+Votre interlocuteur est <b>{{ user.prenom }} {{ user.nom }}</b>.
+<ul>
+    <li>
+        Âge : <b>{{ user.getAge() }} ans</b>
+    </li>
+    <li>
+       N° de téléphone : <b>{{ user.telephone }}</b>
+    </li>
+    <li>
+        Adresse email :  <b>{{ user.email }}</b>
+    </li>
+</ul>
+
+Voici le message qu'il vous a laissé pour présenter ses <b>motivations</b> : <br><br>
+
+{{ motivation }}<br><br>
+
+Nous vous laissons le soin d'entrer en contact avec votre interlocuteur.<br><br>
+
+L'équipe SportEvents86 !

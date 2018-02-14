@@ -123,6 +123,11 @@ class Benevole extends Utilisateur
         return $this->dateNaissance;
     }
 
+    public function getAge(){
+        $today = new \DateTime();
+        return $this->dateNaissance->diff($today)->y;
+    }
+
     /**
      * @param \DateTime $dateNaissance
      */
