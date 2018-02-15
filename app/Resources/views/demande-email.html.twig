@@ -3,7 +3,23 @@ Bonjour
     {{ evt.club.intitule.nom }}
 {% endif %}!<br><br>
 
-Vous avez reçu une demande de bénévolat  pour les missions suivantes :
+Vous avez reçu une demande de bénévolat concernant l'événement :
+<ul>
+    <li>
+        <b>{{ evt.titre }}</b>
+    </li>
+    <li>
+        Sport : <b>{{ evt.sport.intitule }}</b>
+    </li>
+    <li>
+        Date de début : <b>{{ evt.dateDebut|date('d/m/Y') }}</b>
+    </li>
+    <li>
+        Horaire :  <b>{{ evt.horaire|date('H:i') }} H</b>
+    </li>
+</ul>
+
+Et pour les missions suivantes :
 <ul>
     {% for demande in demandes %}
     <li>

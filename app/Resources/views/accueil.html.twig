@@ -206,7 +206,7 @@
                                 </div>
                                 {% if is_granted('ROLE_BENEVOLE') %}
                                 <div class="modal-footer">
-                                    <button class="btn waves-effect blue accent-3" onclick="envoyerDemande()">Envoyer
+                                    <button class="btn waves-effect blue accent-3" id="boutonDemande" onclick="envoyerDemande()">Envoyer
                                         <i class="material-icons right">send</i>
                                     </button>
                                     <button class="modal-action modal-close btn waves-effect waves-light grey" name="action">Fermer
@@ -317,6 +317,9 @@
             obj["evt"] = $('#demandeEvt').val();
             obj["user"] = $('#demandeUser').val();
 
+            $("body").css("cursor", "progress");
+            $("#boutonDemande").prop("disabled",true);
+
             $.ajax({
                 type: "POST",
                 url:'{{ (path('demandeBenevolat')) }}',
@@ -324,6 +327,7 @@
                 dataType: "json",
                 success: function(response) {
                     window.location.href = response;
+                    $("body").css("cursor", "default");
                 }
             });
         }
